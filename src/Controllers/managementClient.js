@@ -23,7 +23,7 @@ const schema = yup
   })
   .required();
 
-const ManagerClient = () => {
+const ManagementClient = () => {
   const dispatch = useDispatch()
   const Companies = useSelector((state) => state.Companies);
   const [open, setOpen] = useState(false);
@@ -97,4 +97,4 @@ const ManagerClient = () => {
     />
   );
 };
-export default ManagerClient;
+export default ManagementClient;

@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import useGoogleCharts from "../Charts/useGoogleCharts";
 import ProducerDetailsComponent from "../Components/producerDetails";
 
 const ProducerDetails = (props) => {
-  let Producer = props.location.aboutProps;
+  let producer = props.location.aboutProps;
+  const userId = useSelector((state) => state.UserId);
+  const PRD = useSelector((state) => state.Producers);
+  let [Producer, setProducer ]= useState(null)
   const google = useGoogleCharts();
   const [quotes, setQuotes] = useState([]);
   const [payments, setPayments] = useState([]);
@@ -25,9 +29,17 @@ const ProducerDetails = (props) => {
   const [NSD, setNSD] = useState(0);
   const [yNSD, setYNSD] = useState(0);
 
+  useEffect(()=>{
+    producer?
+    setProducer(producer):
+    
+    setProducer(PRD?.filter(e=>e.UserId==userId)[0])
+   
+  
+  },[userId])
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/producerQuotes?UserId=${Producer.UserId}`)
+      .get(`http://localhost:8080/producerQuotes?UserId=${Producer?.UserId}`)
       .then(function (response) {
         setQuotes(response.data);
 
@@ -39,7 +51,7 @@ const ProducerDetails = (props) => {
   }, [Producer]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/getUserPayment?UserId=${Producer.UserId}`)
+      .get(`http://localhost:8080/getUserPayment?UserId=${Producer?.UserId}`)
       .then(function (response) {
         setPayments(response.data);
       })
@@ -53,7 +65,7 @@ const ProducerDetails = (props) => {
       .then(function (response) {
         let paz = response.data;
 
-        setModify(paz.filter((e) => e.UserId == Producer.UserId));
+        setModify(paz.filter((e) => e.UserId == Producer?.UserId));
       })
       .catch((error) => {
         console.log(error);
@@ -113,6 +125,7 @@ const ProducerDetails = (props) => {
   }, [quotes, Producer, modify, ystat, mstat]);
 
   return (
+    // <div></div>
     <ProducerDetailsComponent
       quotes={quotes}
       setQuotes={setQuotes}

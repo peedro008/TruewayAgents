@@ -49,10 +49,7 @@ const AdminDashboard = () => {
         q.filter((f) => f.User.name == e.name && f.Status == "Sold").length,
         quo.filter(
           (i) =>
-            i.User.name == e.name &&
-            i.QuoteStatuses.sort(function (a, b) {
-              return b.id - a.id;
-            })[0].Status == "Quoted"
+            i.User.name == e.name 
         ).length,
         e,
       ])

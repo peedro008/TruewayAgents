@@ -11,7 +11,7 @@ import { FiGrid } from "react-icons/fi";
 
 import {FiUser} from "react-icons/fi";
 import {VscGraph} from "react-icons/vsc"
-// import Manager from "./manager"
+
 import {FaRegMoneyBillAlt} from "react-icons/fa"
 import {FiLogOut} from "react-icons/fi"
 import {AiOutlineFile} from "react-icons/ai"
@@ -83,7 +83,7 @@ function ProducerNav({onSearch}) {
        </Link></div>
        <span/>
        <div className="NAcontainer">
-      <Link  className="icons" to='/addClient'activeClassName='NAavtive'>
+      <Link  className="icons" to='/management'activeClassName='NAavtive'>
       <MdAdd className="NAicon" size="25px" color="#868ba5" />
      </Link></div>
      

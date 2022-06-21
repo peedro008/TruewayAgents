@@ -40,6 +40,7 @@ import ManagerDetails from "../Controllers/managerDetails";
 import ProducerDetails from "../Controllers/producerDetails";
 import ProducerEdit from "../Controllers/producerEdit";
 import ManagerEdit from "../Controllers/managerEdit";
+import ClientEdit from "../Controllers/clientEdit";
 
 const AdminRouter = () => {
   return (
@@ -53,10 +54,10 @@ const AdminRouter = () => {
       <Route exact path="/users" component={UsersLobby} />
       <Route exact path="/management/Company" component={ManagementCompany} />
       <Route exact path="/management/Category" component={ManagementCategory} />
-      <Route exact path="/management/Client" component={ManagementClient} />
-      <Route exact path="/management/Location" component={ManagementLocation} />
       <Route exact path="/management/Dealer" component={ManagementDealer} />
       <Route exact path="/management/DealerSalePerson" component={ManagementDealerSalePerson}/>
+      <Route exact path="/management/Client" component={ManagementClient} />
+      <Route exact path="/management/Location" component={ManagementLocation} />
       <Route exact path="/management/Producer" component={ManagementProducer} />
       <Route exact path="/management/Manager" component={ManagementManager} />
       <Route exact path="/payments/pay" component={AddPayment} />
@@ -69,6 +70,7 @@ const AdminRouter = () => {
       <Route exact path='/report/quoteReport' component={QuoteReport}/>
       <Route exact path='/report/paymentReport' component={PaymentReport}/>
       <Route exact path='/report/clients' component={ClientReport}/>
+      <Route exact path='/report/clientedit' component={ClientEdit}/>
       <Route exact path='/report/DealerReport' component={DealerReport}/>
       <Route exact path='/report/dailyReport' component={DRreport}/>
       <Route exact path='/report/dailyReport/details' component={DRdetails}/>
@@ -84,24 +86,6 @@ const AdminRouter = () => {
       <Route exact path='/users/producers/details' component={ProducerDetails}/>
       <Route exact path='/users/producers/edit' component={ProducerEdit}/>
       <Route exact path='/users/manager/edit' component={ManagerEdit}/>
-      {/*
-          <Route exact path='/payments/pay' component={Payment}/>
-          <Route exact path="/payments/deposit" component={DepositCash}/>
-          <Route exact path='/manager/managerClient' component={ManagerClient}/>
-          <Route exact path='/users/producers/details' component={ProducerDetails}/>
-          <Route exact path='/payments/dailyReport' component={DailyReport}/>
-          <Route exact path='/report/clientedit' component={ClientEdit}/>
-          <Route exact path='/report/DeletedReport/clients' component={DeletedClients}/>
-          <Route exact path='/report/DeletedReport/Managers' component={DeletedManagers}/>
-          <Route exact path='/report/DeletedReport/Producers' component={DeletedProducers}/>
-          <Route exact path='/balances' component={Balances}/>
-          <Route exact path='/filter' component={AdminFilter}/>
-        
-          <Route exact path='/addCompany' component={AddCompany}/>
-         
-          <Route exact path='/deposit' component={DepositCash}/>clientsReportClientEdit
-         
-          <Route exact path='/addquote' component={ProducerAddQuote}/> */}
     </Router>
   );
 };

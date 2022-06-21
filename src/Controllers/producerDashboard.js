@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import useGoogleCharts from "../chart/useGoogleCharts";
+import useGoogleCharts from "../Charts/useGoogleCharts";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import ProducerDashboardComponent from "../Components/producerDashboard";
 
-const ProducerDash = () => {
+const ProducerDashboard = () => {
   const [NSD, setNSD] = useState(null);
   const [asd, setAsd] = useState([]);
   const [pquotes, setPquotes] = useState([]);
@@ -43,27 +43,7 @@ const ProducerDash = () => {
       });
   }, [userId]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/getProducer`)
-      .then(function (response) {
-        setProducers(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/quotes`)
-      .then(function (response) {
-        setQuotes2(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(() => {
     let pes = quotes2;
@@ -111,6 +91,7 @@ const ProducerDash = () => {
     setUQuotes(pes);
   }, [asd]);
 
+  
   useEffect(() => {
     let pes = [];
     let quo = quotes2;
@@ -137,7 +118,6 @@ const ProducerDash = () => {
       .reverse();
     setDataList(pes);
   }, [modify, producers, quotes2]);
-
   useEffect(() => {
     let pes = [];
     let quo = quotes2;
@@ -193,4 +173,4 @@ const ProducerDash = () => {
   );
 };
 
-export default ProducerDash;
+export default ProducerDashboard;

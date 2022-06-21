@@ -7,6 +7,7 @@ import { BiPencil, BiDotsHorizontalRounded } from "react-icons/bi";
 import ProducerSales from "../Charts/ProducerSales";
 
 import ProducerPie from "../Charts/ProducerPie";
+import { useSelector } from "react-redux";
 const ProducerDetailsComponent = ({
   quotes,
   setQuotes,
@@ -45,10 +46,12 @@ const ProducerDetailsComponent = ({
   Producer,
   google,
 }) => {
+  const userRole = useSelector((state) => state.userRole);
+  
   return (
     <div className="genericDiv">
       <div className="genericHeader">
-        <p className="genericTitle">{Producer.name}</p>
+        <p className="genericTitle">{Producer?.name}</p>
       </div>
       <div className="PRODcont1">
         <div className="PRODrect">
@@ -235,7 +238,7 @@ const ProducerDetailsComponent = ({
           </>
         )}
       </div>
-
+      {userRole !== "Producer" && 
       <NavLink
         to={{
           pathname: "/users/producers/edit",
@@ -256,8 +259,7 @@ const ProducerDetailsComponent = ({
             <p className="FITbuttonText">Edit</p>
           </div>
         </button>
-      </NavLink>
-      <BsChevronLeft
+      </NavLink>}      <BsChevronLeft
         color="grey"
         style={{
           minWidth: "30px",

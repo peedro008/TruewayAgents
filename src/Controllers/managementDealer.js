@@ -68,7 +68,7 @@ const ManagementDealer = () => {
   };
 
   const optionsC = Clients.map((e) => ({ value: e.id, label: e.name }));
-  const optionsD = DealerSalesPersons.map((e) => ({ value: e.id, label: e.name }))
+  const optionsD = DealerSalesPersons?.map((e) => ({ value: e.id, label: e.name }))
   return(
     <ManagementDealerComponent
         onOpenModal={onOpenModal}

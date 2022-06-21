@@ -55,7 +55,7 @@ const ManagementDealerComponent = ({
               name="ClientId"
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Select
-                  value={optionsC.find((c) => c.value === value)}
+                  value={optionsC?.find((c) => c.value === value)}
                   onChange={(val) => onChange(val.value)}
                   control={control}
                   options={client.map((e) => ({
@@ -77,10 +77,10 @@ const ManagementDealerComponent = ({
               name="DealerSalePersonId"
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Select
-                  value={optionsD.find((c) => c.value === value)}
+                  value={optionsD?.find((c) => c.value === value)}
                   onChange={(val) => onChange(val.value)}
                   control={control}
-                  options={dealerSalePerson.map((e) => ({
+                  options={dealerSalePerson?.map((e) => ({
                     value: e.id,
                     label: e.name,
                   }))}
