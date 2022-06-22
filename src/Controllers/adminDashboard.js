@@ -25,11 +25,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     let temp = [];
     let pes = [];
-    modify
-      .sort(function (a, b) {
+    modify?.sort(function (a, b) {
         return b.id - a.id;
-      })
-      .map((e) => {
+      })?.map((e) => {
         if (!pes.includes(e.Quote.id) && e.Status !== "-") {
           temp.push(e);
           pes.push(e.Quote.id);
@@ -43,19 +41,18 @@ const AdminDashboard = () => {
     let quo = quotes;
 
     let q = modify;
-    producers.map((e) =>
+    producers?.map((e) =>
       pes.push([
         e.name,
-        q.filter((f) => f.User.name == e.name && f.Status == "Sold").length,
-        quo.filter(
+        q?.filter((f) => f.User.name == e.name && f.Status == "Sold").length,
+        quo?.filter(
           (i) =>
             i.User.name == e.name 
         ).length,
         e,
       ])
     );
-    pes
-      .sort(function (a, b) {
+    pes?.sort(function (a, b) {
         return a[1] / a[2] - b[1] / b[2];
       })
       .reverse();
@@ -64,13 +61,13 @@ const AdminDashboard = () => {
   useEffect(() => {
     let pes = 0;
     let pas = 0;
-    let q = quotes;
-    quotes.map((e) => {
+    
+    quotes?.map((e) => {
       if (
-        e.QuoteStatuses.sort(function (a, b) {
+        e.QuoteStatuses?.sort(function (a, b) {
           return a.id - b.id;
         }).reverse()[0].Status !== "Quoted" &&
-        e.QuoteStatuses.sort(function (a, b) {
+        e.QuoteStatuses?.sort(function (a, b) {
           return a.id - b.id;
         }).reverse()[0].Status !== "Cancelled"
       ) {
@@ -86,7 +83,7 @@ const AdminDashboard = () => {
   //NSD
   useEffect(() => {
     let temp = 0;
-    payments.map((e) => {
+    payments?.map((e) => {
       temp = +parseFloat(e.NSDvalue);
     });
     setNSD(temp);

@@ -54,7 +54,7 @@ const ManagementDealer = () => {
             console.log("error");
           } else {
             console.log(jsonRes);
-            GetDealers(dispatch)
+            
           }
         } catch (err) {
           console.log(err);
@@ -62,6 +62,7 @@ const ManagementDealer = () => {
         onOpenModal();
         
       })
+      .then(()=>GetDealers(dispatch))
       .catch((err) => {
         console.log(err);
       });

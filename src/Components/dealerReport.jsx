@@ -151,7 +151,7 @@ const DealerReportComponent = ({
                     {e.Client.name}
                   </td>
                   <td className="ClientName" scope="row">
-                    {e.DealerSalePerson.name}
+                    {e.DealerSalePerson?.name}
                   </td>
                   <td className="ClientName" scope="row">
                     {e.dateSold}

@@ -36,7 +36,7 @@ deleteClient
           />
         </div>
       </div>
-      <table class="table2" style={{ minWidth: "88.3vw" }}>
+      <table class="table2" style={{ maxWidth: "88.3vw",  }}>
         <tbody>
           <tr>
             <th scope="col" className="column1">

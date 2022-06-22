@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "../Css/css.css";
 
@@ -10,6 +10,7 @@ import Icon from "../assets/Icon.png";
 import {  Controller } from "react-hook-form";
 
 import { BsChevronLeft } from "react-icons/bs";
+import NSDcalculator from "../Logic/NSDcalculator";
 
 
 
@@ -47,8 +48,13 @@ setForm,
 payment,
 newClient,
 ClientSelected,
-reload
+reload,
+total,
+setTotal,
+totalValues,
+setTotalValues,
 }) {
+
   
   return (
     <div className="genericDiv">
@@ -148,7 +154,8 @@ reload
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <Select
                   value={optionsCa.find((c) => c.value === value)}
-                  onChange={(val) => onChange(val.value)}
+                  onChange={(val) => {onChange(val.value)
+                  setTotalValues({...totalValues, Category:val.value})}}
                   control={control}
                   options={categories.map((e) => ({
                     value: e.id,
@@ -201,7 +208,7 @@ reload
                 <Select
                 isDisabled={form.client?false:true}
                   value={optionsQ.find((c) => c.value === value)}
-                  onChange={(val) => {onChange(val.value); setForm({...form, aa:val.value, Category: val.Category})}}
+                  onChange={(val) => {onChange(val.value); setForm({...form, aa:val.value, Category: val.Category});setTotalValues({...totalValues, Category: val.Category})} }
                   control={control}
                   options={optionsQ}
                   name={"QuoteId"}
@@ -229,7 +236,8 @@ reload
             (c) => c.value === form.Category
           )}
              value={optionsCa.find((c) => c.value === value)}
-             onChange={(val) => onChange(val.value)}
+             onChange={(val) => {onChange(val.value)
+            setTotalValues({...totalValues, Category:val.value})}}
              control={control}
              options={categories.map((e) => ({
                value: e.id,
@@ -276,6 +284,7 @@ reload
               className="AQinput"
               value={payment.amount}
               {...register("amount")}
+              onChange={(e)=>{setTotalValues({...totalValues, amount:e.target.value})}}
             />
             <p className="FORMerror">{errors.amount?.message}</p>
           </div>
@@ -327,19 +336,22 @@ reload
             />
 
             <p className="FORMerror">{errors.method?.message}</p>
-            {method == "credit/debit" && (
-              <>
-                <div style={{ marginTop: "20px", height: "max-content" }}>
+            
+          </div>
+          {method == "credit/debit" && (
+            
+              <div className="PAYInputCont">
+             
                   <p className="PAYtitle">Credit card fee</p>
                   <input
-                    className="PAYsub-title"
+                    className="AQinput"
                     {...register("creditCardFee")}
+                  onChange={e=>{setTotalValues({...totalValues, creditCardFee:e.target.value})}}
                   />
                   <p className="FORMerror">{errors.creditCardFee?.message}</p>
                 </div>
-              </>
+           
             )}
-          </div>
         </div>
         <div className="AQwhiteContainer11">
           <div className="AQinputContainer">
@@ -353,8 +365,10 @@ reload
                   value={inputs.NSD}
                   key="NSD"
                   name="NSD"
-                  onChange={(event) =>
-                    setInputs({ ...inputs, NSD: !inputs.NSD })
+                  onChange={(event) =>{
+               setInputs({ ...inputs, NSD: !inputs.NSD })
+              
+                  }
                   }
                 />
                 {inputs.NSD ? (
@@ -371,8 +385,10 @@ reload
                     key="NSDamount"
                     name="NSDamount"
                     defaultValue={0}
+                    disabled={totalValues.Category?false:true}
                     value={inputs.NSDamount}
                     {...register("NSDamount")}
+                    onChange={e=>  setTotalValues({...totalValues, NSDamount:NSDcalculator(parseFloat(totalValues.Category), parseFloat(e.target.value))})}
                   />
                   <p className="FORMerror">{errors.NSDamount?.message}</p>
                   <p className="FORMerror">{errors.ClientId?.message}</p>
@@ -411,6 +427,7 @@ reload
                     defaultValue={0}
                     value={inputs.MVRvalue}
                     {...register("MVRvalue")}
+                    onChange={e=>{setTotalValues({...totalValues, MVRvalue:e.target.value})}}
                   />
                   <p className="FORMerror">{errors.NSDamount?.message}</p>{" "}
                 </>
@@ -448,14 +465,19 @@ reload
                     key="dealerSalePerson"
                     name="dealerSalePerson"
                     {...register("PIPvalue")}
+                    onChange={e=>{setTotalValues({...totalValues, PIPvalue:e.target.value})}}
                   />
                   <p className="FORMerror">{errors.NSDamount?.message}</p>
                 </>
               )}
             </div>
+            <div className="DEPtotal1">
+                        <p className="DEPtotalT">TOTAL $ {total?total:0}</p>
+                    </div>
           </div>
+         
         </div>
-
+       
         <Modal open={open} onClose={reload} center classNames={"modal"}>
           <div className="modal">
             <img

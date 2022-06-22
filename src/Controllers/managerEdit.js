@@ -58,14 +58,14 @@ const ManagerEdit = (props) => {
             console.log("error");
           } else {
             console.log(jsonRes);
-            GetManager(dispatch);
+            
           }
         } catch (err) {
           console.log(err);
         }
         onOpenModal();
       })
-
+      .then(()=>GetManager(dispatch))
       .catch((err) => {
         console.log(err);
       });

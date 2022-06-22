@@ -42,21 +42,21 @@ function ManagementDealerSalePerson() {
         .then(async (res) => {
           try {
             const jsonRes = await res.json();
-
+            
             if (res.status !== 200) {
               console.log("error");
             } else {
-                GetDealerSalePerson(dispatch);
+                
               console.log(jsonRes);
             }
           } catch (err) {
             console.log(err);
           }
-          
+       
           onOpenModal();
          
         })
-     
+        .then(()=>GetDealerSalePerson(dispatch))
 
         .catch((err) => {
           console.log(err);

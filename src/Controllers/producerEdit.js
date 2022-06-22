@@ -66,14 +66,14 @@ const ProducerEdit = (props) => {
           } else {
             console.log(jsonRes);
 
-            GetProducer(dispatch);
+         
           }
         } catch (err) {
           console.log(err);
         }
         onOpenModal();
       })
-
+      .then(()=>GetProducer(dispatch))
       .catch((err) => {
         console.log(err);
       });

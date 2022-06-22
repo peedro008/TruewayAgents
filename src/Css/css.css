@@ -1850,6 +1850,22 @@
   padding: 0px 7px;
   background-color: #e3e3e3;
 }
+.DEPtotal1 {
+  height: 35px;
+  max-width: 358px;
+  width: 198px;
+  display: flex;
+  align-items: "center";
+  justify-content: center;
+  position:absolute;
+  left: 110px;
+  top: 85%;
+  border-radius: 0px;
+  border-radius: 5px;
+
+  padding: 0px 7px;
+  background-color: #e3e3e3;
+}
 .DEPsubCont {
   height: 70vh;
   overflow-y: scroll;

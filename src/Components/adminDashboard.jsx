@@ -123,7 +123,7 @@ handleNext,
               <div className="dashText">
                 <p className="dashCardTitle">
                   {
-                    quotes.filter(
+                    quotes?.filter(
                       (e) =>
                         e.QuoteStatuses.sort(function (a, b) {
                           return b.id - a.id;
@@ -143,8 +143,8 @@ handleNext,
               </div>
               <div className="dashText">
                 <p className="dashCardTitle">
-                  {modify.filter((e) => e.Status == "Sold").length
-                    ? modify.filter((e) => e.Status == "Sold").length
+                  {modify?.filter((e) => e.Status == "Sold").length
+                    ? modify?.filter((e) => e.Status == "Sold").length
                     : 0}
                 </p>
                 <p className="dashCardText">Total quotes sold per month</p>
@@ -172,7 +172,7 @@ handleNext,
                 <img src={bbill} />
               </div>
               <div className="dashText">
-                <p className="dashCardTitle">{payments.length}</p>
+                <p className="dashCardTitle">{payments?.length?payments?.length:0}</p>
                 <p className="dashCardText">Total payments per month</p>
               </div>
             </div>

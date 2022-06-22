@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ClientEditComponent from "../Components/clientEdit";
+import { GetClients } from "../Logic/Fetch";
 function ClientEdit(props) {
   let Client = props.location.aboutProps;
   const [inputs, setInputs] = useState({
     name: Client.name,
     email: Client.email,
-    Tel: Client.Tel,
+    tel: Client.tel,
     ClientId: Client.id,
     new: Client.new,
     notes: Client.notes,
@@ -22,7 +23,7 @@ function ClientEdit(props) {
   const company = useSelector((state) => state.Companies);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
-
+const dispatch = useDispatch	()
   const handleClick = () => {
     fetch(`http://localhost:8080/modifyClient`, {
       method: "POST",
@@ -45,6 +46,7 @@ function ClientEdit(props) {
         }
         onOpenModal();
       })
+      .then(()=>GetClients(dispatch))
       .catch((err) => {
         console.log(err);
       });

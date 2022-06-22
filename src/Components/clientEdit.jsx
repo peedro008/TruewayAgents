@@ -54,7 +54,7 @@ function ClientEditComponent({
             <input
               placeholder={Client.tel}
               value={inputs.Tel}
-              onChange={(e) => setInputs({ ...inputs, Tel: e.target.value })}
+              onChange={(e) => setInputs({ ...inputs, tel: e.target.value })}
               className="PAYsub-title"
             ></input>
           </div>
@@ -96,7 +96,7 @@ function ClientEditComponent({
             <p className="PAYtitle">Date of Birth</p>
             <input
               type={"date"}
-              placeholder={Client.tel}
+              placeholder={Client.dateOfBirth}
               value={inputs.dateOfBirth}
               onChange={(e) =>
                 setInputs({ ...inputs, dateOfBirth: e.target.value })
@@ -115,6 +115,7 @@ function ClientEditComponent({
                       address: value.properties.formatted,
                     });
                   }}
+                  defaultValue={inputs.address}
                   suggestionsChange={(value) => {
                     console.log(value);
                   }}
@@ -148,7 +149,7 @@ function ClientEditComponent({
           top: "17px",
           alignSelf: "flex-start",
         }}
-        onClick={() => window.history.go(-2)}
+        onClick={() => window.history.go(-1)}
       />
       <div
         style={{
@@ -174,7 +175,7 @@ function ClientEditComponent({
             }}
           />
 
-          <p className="modalText">Quote modified successfully</p>
+          <p className="modalText">Client modified successfully</p>
 
           <button className="modalButton">
             {" "}

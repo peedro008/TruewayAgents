@@ -97,9 +97,7 @@ const ManagementDealerComponent = ({
             <input
               {...register("amount")}
               placeholder="Insert Amount"
-              onChange={(e) => {
-                setinputs({ ...inputs, phone: e.target.value });
-              }}
+           
               className="AQinput"
             ></input>
             <p className="FORMerror">

@@ -50,7 +50,18 @@ function AddPayment(props) {
   const  categories  = useSelector(state=>state.Categories)
   const  locations  = useSelector(state=>state.Locations)
   const  clients  = useSelector(state=>state.Clients)
+  let [total, setTotal] = useState(0)
+  let [totalValues, setTotalValues] = useState({})
+  useEffect(() => {
 
+
+    setTotal((totalValues.amount?parseFloat(totalValues.amount&&totalValues.amount):0)+
+    (totalValues.PIPvalue?parseFloat(totalValues.PIPvalue&&totalValues.PIPvalue):0)+
+    (totalValues.MVRvalue?parseFloat(totalValues.MVRvalue&&totalValues.MVRvalue):0)+
+    (totalValues.creditCardFee?parseFloat(totalValues.creditCardFee&&totalValues.creditCardFee):0)+
+    (totalValues.NSDamount?parseFloat(totalValues.NSDamount&&totalValues.NSDamount):0))
+ 
+  }, [totalValues])
   
   const {
     register,
@@ -202,7 +213,10 @@ useEffect(()=>{
     newClient={newClient}
     ClientSelected={ClientSelected}
     reload={reload}
-
+    total={total}
+setTotal={setTotal}
+totalValues={totalValues}
+setTotalValues={setTotalValues}
   />
  
 }
