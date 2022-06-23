@@ -10,7 +10,7 @@ function PozzaChart ({google}) {
 
     useEffect (()=>{
      
-    axios.get(`http://localhost:8080/quotes`)
+    axios.get(`https://truewayagentbackend.com/quotes`)
     .then(function(response){
         setQuotes(response.data)
        
@@ -71,7 +71,7 @@ useEffect(()=>{
                       "colors": ["#FFB800","#33D69F","#FF4C61","#777DA7","#ADD9F4"],
           
                       
-                     backgroundColor:"#fafafa"
+                     backgroundColor:"#EBEFF2"
                     };
       
       // Instantiate and draw our chart, passing in some options.

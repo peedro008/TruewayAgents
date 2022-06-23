@@ -46,7 +46,7 @@ handleNext,
             <div style={{ marginLeft: "-100px" }}>
               {google && <PizzaChart google={google} />}
             </div>
-            <div className="DashPList1">
+            <div className="DashPList1" >
               <div className="DashPListHeader">
                 <p className="DashPListTitle">Producers average sale</p>
                 <p className="DashPListSTitle">Descending</p>

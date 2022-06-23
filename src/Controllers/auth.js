@@ -31,7 +31,7 @@ const Auth = () => {
       UserName,
       Password,
     };
-    fetch(`http://localhost:8080/login`, {
+    fetch(`https://truewayagentbackend.com/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

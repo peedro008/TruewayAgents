@@ -41,6 +41,7 @@ import ProducerDetails from "../Controllers/producerDetails";
 import ProducerEdit from "../Controllers/producerEdit";
 import ManagerEdit from "../Controllers/managerEdit";
 import ClientEdit from "../Controllers/clientEdit";
+import PaymentDetails from "../Controllers/paymentDetails";
 
 const AdminRouter = () => {
   return (
@@ -86,6 +87,7 @@ const AdminRouter = () => {
       <Route exact path='/users/producers/details' component={ProducerDetails}/>
       <Route exact path='/users/producers/edit' component={ProducerEdit}/>
       <Route exact path='/users/manager/edit' component={ManagerEdit}/>
+      <Route exact path='/report/payment/details' component={PaymentDetails}/>
     </Router>
   );
 };

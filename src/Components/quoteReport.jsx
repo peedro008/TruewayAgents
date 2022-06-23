@@ -4,7 +4,7 @@ import "../Css/css.css"
 
 import { NavLink } from "react-router-dom";
 import  ModifyModal  from "../Controllers/modifyModal";
-import { BsChevronLeft } from "react-icons/bs";
+import { BsChevronLeft, BsInfoCircle } from "react-icons/bs";
 
 
 import Select from 'react-select'
@@ -159,7 +159,8 @@ producers
       
         <tbody>
             <tr>
-            {columns.clientName&&<th scope="col" className="column1"><p   className="REPtype">&nbsp;</p></th>}
+            <th scope="col" className="column1"><p   className="REPtype">&nbsp;</p></th>
+            <th scope="col" className="column1"><p   className="REPtype">&nbsp;</p></th>
             {columns.clientName&&<th scope="col" className="column1"><p   className="REPtype">Client name</p></th>}
             {columns.clientEmail&&<th scope="col" className="column1"><p className="REPtype">Client E-mail</p></th>}
             {columns.clienTel&&<th scope="col" className="column1"><p className="REPtype">Client phone</p></th>}
@@ -191,27 +192,28 @@ producers
                    
                    return (
                         <tr>
+                            <td className="ClientName" scope="row"><NavLink style={{display:"flex", justifyContent:"center",textDecoration: "none"}} to={{
+                    pathname:("/report/payment/details"),
+                    aboutProps:e.id
+                }}><BsInfoCircle size={"20px"} /></NavLink></td>
                             <td className="ClientName" scope="row"><div className="editIcon" onClick={()=>modify(e)}></div></td>
                             {columns.clientName&&<td className="ClientName" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/clientedit",aboutProps:e.Client}}>{e.Client.name}</NavLink></td>}
                             {columns.clientEmail&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/clientedit",aboutProps:e.Client}}>{e.Client.email}</NavLink></td>}
                             {columns.clienTel&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/clientedit",aboutProps:e.Client}}>{e.Client.tel}</NavLink></td>}
                             {columns.category&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.Category.name}</NavLink></td>}
-                            {columns.CompanyId&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.Company.name}</NavLink></td>}
-                            {columns.ProducerId&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.User.name}</NavLink></td>}
-
-                            {columns.ProducerId&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>${parseFloat(e.down)+parseFloat(e.PIPvalue)+parseFloat(e.NSDvalue)+parseFloat(e.MVRvalue)}</NavLink></td>}
-                            
-                            {columns.bound&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.QuoteStatuses?.sort(function (a, b) {return b.id - a.id;
-                })[0]?.Status}</NavLink></td>}
-                            <td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.date}</NavLink></td>
-                            <td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.time.substring(11,16)}</NavLink></td>
-                            {columns.down&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>${e.down}</NavLink></td>}
-                            {columns.monthlyPayment&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>${e.monthlyPayment}</NavLink></td>}
-                            {columns.dealer&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.Dealer?e.Dealer.name:"false"}</NavLink></td>}
-                            {columns.NSD&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>${e.NSDvalue}</NavLink></td>}
-                            {columns.PIP&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>${e.PIPvalue}</NavLink></td>}
-                            {columns.MVR&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>${e.MVRvalue}</NavLink></td>}
-                            {columns.location&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.Location.name}</NavLink></td>}
+                            {columns.CompanyId&&<td className="row1" scope="row">{e.Company.name}</td>}
+                            {columns.ProducerId&&<td className="row1" scope="row">{e.User.name}</td>}
+                            <td className="row1" scope="row">${parseFloat(e.down)+parseFloat(e.PIPvalue)+parseFloat(e.NSDvalue)+parseFloat(e.MVRvalue)}</td>
+                            {columns.bound&&<td className="row1" scope="row">{e.QuoteStatuses?.sort(function (a, b) {return b.id - a.id})[0]?.Status}</td>}
+                            <td className="row1" scope="row">{e.date}</td>
+                            <td className="row1" scope="row">{e.time.substring(11,16)}</td>
+                            {columns.down&&<td className="row1" scope="row">${e.down}</td>}
+                            {columns.monthlyPayment&&<td className="row1" scope="row">${e.monthlyPayment}</td>}
+                            {columns.dealer&&<td className="row1" scope="row">{e.Dealer?e.Dealer.name:"false"}</td>}
+                            {columns.NSD&&<td className="row1" scope="row">${e.NSDvalue}</td>}
+                            {columns.PIP&&<td className="row1" scope="row">${e.PIPvalue}</td>}
+                            {columns.MVR&&<td className="row1" scope="row">${e.MVRvalue}</td>}
+                            {columns.location&&<td className="row1" scope="row">{e.Location.name}</td>}
                             {userRole!=="Producer"&&
                                      <td className="ClientName" scope="row"  >
                                           <div style={{height:"auto",display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center" }}>

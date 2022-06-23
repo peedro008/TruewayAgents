@@ -36,7 +36,7 @@ const DealerReport = () => {
 
 }
   const PayDealer = (data) => {
-    fetch(`http://localhost:8080/paidDealer`, {
+    fetch(`https://truewayagentbackend.com/paidDealer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

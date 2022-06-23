@@ -14,6 +14,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyDocument from "../PDF/prueba";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { BsInfoCircle } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
 const PaymentReportComponent = ({
     userRole,
 payments,
@@ -164,6 +166,7 @@ closeCloud,
       <table class="table2">
         <tbody>
           <tr>
+          <th scope="col" className="column1"><p   className="REPtype">&nbsp;</p></th>
             <th scope="col" className="column1">
               <p className="REPtype">Client name</p>
             </th>
@@ -221,6 +224,10 @@ closeCloud,
             .map((e) => {
               return (
                 <tr>
+                   <td className="ClientName" scope="row"><NavLink style={{display:"flex", justifyContent:"center",textDecoration: "none"}} to={{
+                    pathname:("/report/payment/details"),
+                    aboutProps:e.id
+                }}><BsInfoCircle size={"20px"} /></NavLink></td>
                   <td className="ClientName" scope="row">
                     {e.Client.name}
                   </td>
@@ -233,6 +240,7 @@ closeCloud,
                   <td className="ClientName" scope="row">
                     {e.type}
                   </td>
+                  
                   <td className="ClientName" scope="row">
                     {e.date}
                   </td>

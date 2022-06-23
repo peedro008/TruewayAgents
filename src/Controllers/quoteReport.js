@@ -55,7 +55,7 @@ const QuoteReport=(props)=>{
     const locations = useSelector((state) => state.Locations);
    
     useEffect(()=>{
-        axios.get(`http://localhost:8080/quotes`)
+        axios.get(`https://truewayagentbackend.com/quotes`)
             .then(function(response){
                 setQuotes(response.data)
                 
@@ -125,7 +125,7 @@ const QuoteReport=(props)=>{
     const deleteClient = (data) => {
         data&&
         console.log(data)
-        fetch(`http://localhost:8080/deleteQuote`, {
+        fetch(`https://truewayagentbackend.com/deleteQuote`, {
             
             method: 'POST',
             headers: {
@@ -161,6 +161,25 @@ const QuoteReport=(props)=>{
         const handleDelete = (e)=>{
             setDeletedOne(e)
             setOpen1(true)
+        }
+        let defaultC = {
+            clientName: true,
+            clientEmail: true,
+            clientTel: true,
+            CompanyId: true,
+            ProducerId: true,
+            down: true,
+            monthlyPayment: true,
+            dealer: true,
+            NSD: true,
+            PIP: true,
+            MVR: true,
+            location: true,
+            bound: true,
+            notes: true,
+            renewDown: true,
+            creditCardFee: true,
+            category: true
         }
     return(
       <QuoteReportComponent
@@ -198,7 +217,7 @@ const QuoteReport=(props)=>{
         setQuotesFil={setQuotesFil}
         setPes={setPes}
         setOpenFilter={setOpenFilter}
-        columns={columns}
+        columns={columns?columns:defaultC}
         onCloseModal={onCloseModal}
         onCloseModal1={onCloseModal1}
         producers={producers}

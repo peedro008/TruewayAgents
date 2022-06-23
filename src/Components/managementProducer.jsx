@@ -168,8 +168,8 @@ const ManagementProducerComponent = ({
           minHeight: "30px",
           position: "fixed",
           zIndex: 9,
-          left: "5.5%",
-          top: "2.5%",
+          left: "80px",
+          top: "17px",
           alignSelf: "flex-start",
         }}
         onClick={() => window.history.go(-1)}

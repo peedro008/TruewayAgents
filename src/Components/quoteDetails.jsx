@@ -82,14 +82,14 @@ function QuoteDetailsComponent({
                                 <p className="DETtitle">Modification date</p>
                                 <p className="DETtext">{e.date}</p>
                             </div>
-                            <div className='DETbBox' >
-                                <p className="DETtitle">Notes</p>
-                                <p className="DETtext">{e.note}</p>
-                            </div>  
                             <div className='DETsBox'>
                                 <p className="DETtitle">Producer</p>
                                 <p className="DETtext">{e.User.name}</p>
                             </div> 
+                            <div className='DETbBox' >
+                                <p className="DETtitle">Notes</p>
+                                <p className="DETtext">{e.note}</p>
+                            </div>  
                             
                             </div>
                             

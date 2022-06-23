@@ -114,7 +114,7 @@ const AddQuote = () => {
       (data.monthlyPayments == "" && setValue("monthlyPayment", "0"));
     setValue("Bound", `${inputs.Bound}`);
 
-    fetch(`http://localhost:8080/addQuote`, {
+    fetch(`https://truewayagentbackend.com/addQuote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +133,7 @@ const AddQuote = () => {
   const handleDealer = (x=null) => {
     inputs.DealerSalePerson &&
     !x?
-      fetch(`http://localhost:8080/addDealer`, {
+      fetch(`https://truewayagentbackend.com/addDealer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +157,7 @@ const AddQuote = () => {
           console.log(err);
         })
         :
-        fetch(`http://localhost:8080/addDealer`, {
+        fetch(`https://truewayagentbackend.com/addDealer`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

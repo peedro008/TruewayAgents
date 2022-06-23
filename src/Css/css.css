@@ -33,7 +33,7 @@
   justify-content: "center";
 }
 .loginContainer {
-  background-color: #fafafa;
+  background-color: #EBEFF2;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -182,7 +182,7 @@
 .genericDiv {
   padding-top: 4.5vw;
   padding-left: 5vw;
-  background-color: #fafafa;
+  background-color: #EBEFF2;
   display: flex;
   min-height: 90%;
 
@@ -194,7 +194,7 @@
 .genericDiv1 {
   padding-top: 4.5vw;
   padding-left: 5vw;
-  background-color: #fafafa;
+  background-color: #EBEFF2;
   display: flex;
   height: max-content;
   width: max-content;
@@ -733,22 +733,27 @@
   padding-top: 60px;
 }
 .DETcontainer {
-  display: flex;
+ 
   width: 100vw;
-  justify-content: space-between;
-  flex-direction: row;
+
+
   width: 87vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-row: auto;
   margin-bottom: 20px;
 }
 .DETsBox {
-  height: 80px;
-  width: 200px;
-  border-radius: 13px;
+  height: 85px;
+  min-width: 17%;
+  margin-right: 40px;
+  border-radius: 8px;
   background-color: #fdfdff;
 }
 .DETtitle {
   font-family: "Gilroy-Regular";
-  font-size: 16px;
+  font-size: 15px;
   font-style: normal;
 
   font-weight: 700;
@@ -761,7 +766,7 @@
 }
 .DETtext {
   font-family: "Gilroy-Regular";
-  font-size: 14px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: 29px;
@@ -773,9 +778,10 @@
   padding-right: 15px;
 }
 .DETbBox {
-  height: 80px;
-  width: 550px;
-  border-radius: 13px;
+  height: 85px;
+  min-width: 34%;
+  margin-right: 40px;
+  border-radius: 8px;
   background-color: #fdfdff;
 }
 
@@ -1211,13 +1217,13 @@
   flex-direction: column;
 }
 .DashPList1 {
-  background-color: #ffffff;
+  background-color:  #ffffff;
   height: max-content;
-  margin-top: 25px;
+  max-height: 50vh;
+  margin-top: 15px;
   min-width: 261px;
   border-radius: 10px;
-  max-height: 90%;
-  min-height: 50vh;
+
   overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
@@ -2178,6 +2184,18 @@
   width: 26px;
   height: 26px;
 }
+.InfoIcon {
+  background-image: url("../assets/editH.svg");
+  background-size: cover;
+  width: 26px;
+  height: 26px;
+}
+.infoIcon:hover {
+  background-image: url("../assets/edit.svg");
+  background-size: cover;
+  width: 26px;
+  height: 26px;
+}
 .deleteIcon {
   color: #858585;
   background-size: cover;
@@ -2364,4 +2382,52 @@
   max-height: 34px;
   border-radius: 2px;
   font-size: 12px;
+}
+
+
+/* PAY DETAILS*/
+.PAYDbigconta{
+  margin-top: 1%;
+  margin-left: 2.5% ;
+  min-height:60vh;
+  min-width: 90vw;
+  display: flex;
+  flex-direction: column;
+ 
+  justify-content: space-between;
+}
+
+.PAYDconta{
+
+  
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-row: auto;
+}
+.PAYDtitlebox{
+  width: 100;
+  text-align: start;
+  height: max-content;
+  padding-left: 10px;
+
+
+}
+.PAYDtitle{
+  font-family: "Gilroy-Regular";
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  text-decoration: underline;
+
+}
+.PAYDsCont {
+  height: 85px;
+  min-width: 60.5%;
+  display: flex;
+  flex-direction: row;
+
 }

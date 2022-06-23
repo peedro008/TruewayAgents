@@ -14,7 +14,7 @@ function ProducerPie ({aboutProps, google}) {
  useEffect (()=>{
       
       
-  axios.get(`http://localhost:8080/quotes`)
+  axios.get(`https://truewayagentbackend.com/quotes`)
   .then(function(response){
       let paz = response.data
 
@@ -51,12 +51,12 @@ function ProducerPie ({aboutProps, google}) {
       
       // Set chart options
       var options = {'title':'Sellers Average',
-                  
+                    fontColor:"#000000",
                     pieHole: 0.4,
                     "colors": ["#FFB800","#FF4C61","#33D69F"],
                    
                      'height':250,
-                      "width":400,
+                      "width":380,
                    
                       titleTextStyle: {
                      
@@ -65,7 +65,7 @@ function ProducerPie ({aboutProps, google}) {
                         marginLeft:"-10px"
                     },
                       
-                     backgroundColor:"#fbfbfb"
+                     backgroundColor:"#EBEFF2;"
                     };
       
       // Instantiate and draw our chart, passing in some options.

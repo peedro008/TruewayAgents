@@ -38,7 +38,7 @@ const DRreport = () => {
     const resetDaily = (e) => {
         let IDs = e.Payments.map(e=>{return e.id})
         console.log({ IDs:IDs,dailyID: e.dailyID })
-        fetch(`http://localhost:8080/resetDailyReport`, {
+        fetch(`https://truewayagentbackend.com/resetDailyReport`, {
             
             method: 'POST',
             headers: {
