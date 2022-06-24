@@ -101,7 +101,7 @@ const QuoteReport=(props)=>{
             temp=temp.filter(h=>h.CategoryId==e.CategoryId)
         }
         if(e.SoldBy){
-            temp=temp.filter(h=>h.QuoteStatuses.sort(function(a,b){return b.id-a.id})[0].User.name==e.SoldBy)
+            temp=temp.filter(h=>h.QuoteStatuses.sort(function(a,b){return b.id-a.id})[0].User.id==e.SoldBy)
         }
         if(e.Status){
             temp=temp.filter(h=>h.QuoteStatuses.sort(function(a,b){return b.id-a.id})[0].Status==e.Status)

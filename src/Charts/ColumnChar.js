@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import spinnerr from "../assets/spinnerr.gif"
 
 function PozzaChart ({google}) {
   const [chart, setChart] = useState(null);
   const [quotes, setQuotes]= useState([])
   const [dato, setDato] = useState([])
   const [asd, setAsd] = useState([])
-
+  const [time, setTime]= useState(false)
     useEffect (()=>{
      
     axios.get(`https://truewayagentbackend.com/quotes`)
@@ -49,6 +49,7 @@ useEffect(()=>{
   useEffect(() => {
   
    setTimeout(()=>{
+    setTime(true)
     if (google && !chart) {
       const data = new google.visualization.DataTable();
       data.addColumn('string', 'Topping');
@@ -84,7 +85,9 @@ useEffect(()=>{
   return (
     <>
       {!google && <p>Loading</p>}
-      <div id="pozzaChart" className={!google ? 'd-none' : ''} />
+     {!time? 
+     <div style={{height:"400px", width:"650px"}}><img src={spinnerr} style={{width:"100px", position:"absolute", right:"65vw", top:"40vh"}}/></div> :
+      <div id="pozzaChart" className={!google ? 'd-none' : ''} />}
     </>
   )
 }

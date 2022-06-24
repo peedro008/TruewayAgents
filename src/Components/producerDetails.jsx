@@ -68,16 +68,13 @@ const ProducerDetailsComponent = ({
             <div style={{ display: "flex", flexDirection: "row" }}>
               {dots1V == 1 ? (
                 <p className="PRODrectQ">
-                  {mstat.filter((e) => e.Status == "Sold").length
-                    ? mstat.filter((e) => e.Status == "Sold").length
-                    : 0}
+                  {mstat.filter((e) => e.Status == "Sold")?.length
+                    }
                   &nbsp;{" "}
                 </p>
               ) : (
                 <p className="PRODrectQ">
-                  {ystat.filter((e) => e.Status == "Sold").length
-                    ? mstat.filter((e) => e.Status == "Sold").length
-                    : 0}
+                  {ystat.filter((e) => e.Status == "Sold")?.length}
                   &nbsp;
                 </p>
               )}

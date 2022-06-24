@@ -136,9 +136,10 @@ useEffect(()=>{
   
   setValue("CategoryId", form.Category)
 },[form])
-  const handleNewClient = () => {
-    !newClient ? temp() : reload();
-  };
+const handleNewClient = () => {
+  setValue("ClientId", null);
+  setNewClient(!newClient);
+};
   const optionM = [
     { value: "credit/debit", label: "credit/debit" },
     { value: "EFT", label: "EFT" },

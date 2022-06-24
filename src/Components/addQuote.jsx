@@ -76,7 +76,7 @@ const AddQuoteComponent = ({
 
       <div className="AQcontainer">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="AQrowContainer2" style={{ width: "69vw" }}>
+          <div className="AQrowContainer2" >
             <div className="AQinputContainer">
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <p className="AQinputName">Client Name</p>

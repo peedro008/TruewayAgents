@@ -29,6 +29,7 @@ import DRdetails from '../Controllers/DRdetails';
 import QuoteDetails from '../Controllers/quoteDetails';
 import QuoteModify from '../Controllers/quoteModify';
 import DepositReport from '../Controllers/depositReport';
+import PaymentDetails from "../Controllers/paymentDetails";
  const ProducerRouter=()=>{
 
 
@@ -58,6 +59,8 @@ import DepositReport from '../Controllers/depositReport';
           <Route exact path='/report/modifyquote' component={QuoteModify}/>
           <Route exact path='/report/depositReport' component={DepositReport}/> 
           <Route exact path='/addquote' component={AddQuote}/>
+          <Route exact path='/report/payment/details' component={PaymentDetails}/>
+          
         </Router>
       );
     }

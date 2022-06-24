@@ -65,7 +65,7 @@ function ProducerPie ({aboutProps, google}) {
                         marginLeft:"-10px"
                     },
                       
-                     backgroundColor:"#EBEFF2;"
+                     backgroundColor:"#EBEFF2"
                     };
       
       // Instantiate and draw our chart, passing in some options.

@@ -2,7 +2,8 @@ import axios from "axios";
 import React, {  useEffect, useState } from "react";
 import moment from "moment";
 import DRreportComponent from "../Components/DRreport";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getDailyReports } from "../Redux/actions";
 const DRreport = () => {
     const [deleteConf, setDeleteConf] = useState("")
     const [deletedOne, setDeletedOne] = useState(null)
@@ -11,7 +12,9 @@ const DRreport = () => {
     const [openFilter, setOpenFilter] = useState(false)
     const [locations, setLocations] = useState([])
     const [open, setOpen] = useState(false);
+    const dispatch = useDispatch()
     const onOpenModal = () => setOpen(true);
+    const LocationId= useSelector(state=>state.LocationId)
     const onCloseModal = () => setOpen(false);
     const [filterValues, setFilterValues ] = useState({
         dateFrom:null,
@@ -19,7 +22,18 @@ const DRreport = () => {
        
 
     })
-    const payments = useSelector((state) => state.DailyReports);
+     const [payments, setPayments ]= useState([])
+    useEffect(()=>{
+        axios
+        .get(`https://truewayagentbackend.com/getDailyReports`)
+        .then(function (response) {
+          setPayments(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },[])
+   
     const [filterCheck, setFilterCheck ] = useState({
         date:false,
         LocationId:false,
@@ -32,7 +46,7 @@ const DRreport = () => {
     }
     const handleDeleteModal = (e)=>{
         resetDaily({dailyID:deletedOne, Payments: paymentsDelete})
-        window.location.reload()
+       // window.location.reload()
 
     }
     const resetDaily = (e) => {
@@ -44,9 +58,11 @@ const DRreport = () => {
             headers: {
                 'Content-Type': 'application/json',
                 },
-            body: JSON.stringify({IDs:IDs,dailyID: e.dailyID}),
+            body: JSON.stringify({IDs:IDs,dailyID: e.dailyID,LocationId:LocationId,}),
             
         })
+        getDailyReports(dispatch)
+        window.history.go(-1)
     }
 
 

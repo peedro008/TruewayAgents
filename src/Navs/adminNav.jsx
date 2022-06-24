@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import "../Css/css.css"
 
 import logo from "../assets/logo.png";
@@ -61,6 +61,24 @@ function AdminNav() {
             />
           </NavLink>
         </div>
+
+        <span />
+
+        <div className="NAcontainer">
+          <NavLink className="icons" to="/addquote" activeClassName="NAavtive">
+            <AiOutlineFile className="NAicon" size="20px" color="#868ba5" />
+          </NavLink>
+        </div>
+        <span />
+        <div className="NAcontainer">
+          <NavLink
+            className="icons"
+            to="/Management"
+            activeClassName="NAavtive"
+          >
+            <MdAdd className="NAicon" size="25px" color="#868ba5" />
+          </NavLink>
+        </div>
         <span />
         <div className="NAcontainer">
           <NavLink className="icons" to="/payments" activeClassName="NAavtive">
@@ -76,20 +94,6 @@ function AdminNav() {
         <div className="NAcontainer">
           <NavLink className="icons" to="/report" activeClassName="NAavtive">
             <VscGraph className="NAicon" size="20px" color="#868ba5" />
-          </NavLink>
-        </div>
-        <span />
-
-        <div className="NAcontainer">
-          <NavLink className="icons" to="/addquote" activeClassName="NAavtive">
-            <AiOutlineFile className="NAicon" size="20px" color="#868ba5" />
-          </NavLink>
-        </div>
-        <span />
-
-        <div className="NAcontainer">
-          <NavLink className="icons" to="/Management" activeClassName="NAavtive">
-            <MdAdd className="NAicon" size="25px" color="#868ba5" />
           </NavLink>
         </div>
       </div>

@@ -2,7 +2,7 @@ import {BiPencil} from "react-icons/bi"
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
-
+import spinnerr from "../assets/spinnerr.gif"
 function QuoteDetailsComponent({
     quote,
     id
@@ -11,9 +11,10 @@ function QuoteDetailsComponent({
 
     return (
         <div className='genericDiv' style={{overflowX:"hidden"}}>
-            {!quote.length?<p>No quotes</p>:
+            {!quote.length?<img src={spinnerr} style={{width:"200px", position:"absolute", right:"45vw", top:"45vh"}}/>:
+               
                <div>
-               <div className="genericHeader">
+                <div className="genericHeader">
                 <p className="genericTitle">Quote #{id}</p>
                 <p className='subTitt'>LAST MODIFICATION &nbsp;{quote[0].QuoteStatuses.sort(function(a,b){return a.id-b.id}).reverse()[0].date}</p>
                  </div>

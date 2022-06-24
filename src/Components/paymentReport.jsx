@@ -227,7 +227,7 @@ closeCloud,
                    <td className="ClientName" scope="row"><NavLink style={{display:"flex", justifyContent:"center",textDecoration: "none"}} to={{
                     pathname:("/report/payment/details"),
                     aboutProps:e.id
-                }}><BsInfoCircle size={"20px"} /></NavLink></td>
+                }}><div className="InfoIcon" /></NavLink></td>
                   <td className="ClientName" scope="row">
                     {e.Client.name}
                   </td>

@@ -2,12 +2,13 @@ import { BiPencil } from "react-icons/bi";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import spinnerr from "../assets/spinnerr.gif"
 
 function PaymentDetailsComponent({ payment, id }) {
   return (
     <div className="genericDiv" style={{ overflowX: "hidden" }}>
       {!payment?.length ? (
-        <p>No quotes</p>
+       <img src={spinnerr} style={{width:"200px", position:"absolute", right:"45vw", top:"45vh"}}/>
       ) : (
         <div>
           <div className="genericHeader">

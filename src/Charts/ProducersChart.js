@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
-
+import spinnerr from "../assets/spinnerr.gif"
 function PizzaChart ({google}) {
   const [chart, setChart] = useState(null);
   const [producers, setProducers]= useState([])
   const [modify, setModify]= useState([])
   const [dato, setDato]= useState([])
   const [quotes, setQuotes]= useState([])
-  
+  const [time, setTime]= useState(false)
   useEffect(()=>{
     axios.get(`https://truewayagentbackend.com/quotes`)
         .then(function(response){
@@ -55,6 +55,7 @@ function PizzaChart ({google}) {
       }, [quotes, producers, modify])
   useEffect(() => {
     setTimeout(()=>{
+      setTime(true)
     if (google && !chart) {
       const data = new google.visualization.DataTable();
       data.addColumn('string', 'Topping');
@@ -84,15 +85,22 @@ function PizzaChart ({google}) {
       // Instantiate and draw our chart, passing in some options.
       const newChart = new google.visualization.ColumnChart(document.getElementById('pizzaChart'));
       newChart.draw(data, options);
-   
+     
       setChart(newChart);
+     
     }},1000)
+    
   }, [ dato, chart, ]);
   
   return (
     <>
-      {!google && <p>asssad</p>}
-      <div style={{minHeight:"350px", minWidth:"66vw"}} id="pizzaChart" className={!google ? 'd-none' : ''} />
+      
+      {!google && <p>Google 404</p>}
+      {
+        !time?
+        <img src={spinnerr} style={{width:"100px", position:"absolute", right:"65vw", top:"40vh"}}/>:
+      <div style={{minHeight:"350px", minWidth:"66vw"}} id="pizzaChart" className={!google ? 'd-none' : ''} ></div>
+      }
     </>
   )
 }

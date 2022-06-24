@@ -13,7 +13,7 @@ import close from "../assets/close.svg";
 import {AiOutlineDelete, AiOutlineCloseCircle} from "react-icons/ai"
 
 import Modal from 'react-responsive-modal';
-
+import spinnerr from "../assets/spinnerr.gif"
 const QuoteReportComponent=({
     handleDelete,
 deleteClient,
@@ -144,7 +144,7 @@ producers
               {
                  filterValues.DealerId&&
                  <div className="cloudFilter">
-                     <p className="cloudFilterText">Location:{dealers.find(c => c.id ==  filterValues.DealerId)?.name}
+                     <p className="cloudFilterText">Location:{dealers?.find(c => c.id ==  filterValues.DealerId)?.name}
                      </p>
                      <img src={close} style={{marginLeft:"5px"}}onClick={()=>{closeCloud({...filterValues,DealerId:null})}}/>
                      </div>
@@ -187,20 +187,18 @@ producers
             
         
             {
-                quotesFil.length&&
+                !quotesFil? <img src={spinnerr} style={{width:"200px", position:"absolute", right:"45vw", top:"45vh"}}/>:
                quotesFil.sort(function(a,b){return b.id-a.id}).map((e)=>{
                    
                    return (
                         <tr>
-                            <td className="ClientName" scope="row"><NavLink style={{display:"flex", justifyContent:"center",textDecoration: "none"}} to={{
-                    pathname:("/report/payment/details"),
-                    aboutProps:e.id
-                }}><BsInfoCircle size={"20px"} /></NavLink></td>
+                            
+                            <td className="ClientName" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}><div className="InfoIcon" ></div></NavLink></td>
                             <td className="ClientName" scope="row"><div className="editIcon" onClick={()=>modify(e)}></div></td>
                             {columns.clientName&&<td className="ClientName" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/clientedit",aboutProps:e.Client}}>{e.Client.name}</NavLink></td>}
-                            {columns.clientEmail&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/clientedit",aboutProps:e.Client}}>{e.Client.email}</NavLink></td>}
-                            {columns.clienTel&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/clientedit",aboutProps:e.Client}}>{e.Client.tel}</NavLink></td>}
-                            {columns.category&&<td className="row1" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/quote",aboutProps:{ID:e.id}}}>{e.Category.name}</NavLink></td>}
+                            {columns.clientEmail&&<td className="row1" scope="row">{e.Client.email}</td>}
+                            {columns.clienTel&&<td className="row1" scope="row">{e.Client.tel}</td>}
+                            {columns.category&&<td className="row1" scope="row">{e.Category.name}</td>}
                             {columns.CompanyId&&<td className="row1" scope="row">{e.Company.name}</td>}
                             {columns.ProducerId&&<td className="row1" scope="row">{e.User.name}</td>}
                             <td className="row1" scope="row">${parseFloat(e.down)+parseFloat(e.PIPvalue)+parseFloat(e.NSDvalue)+parseFloat(e.MVRvalue)}</td>
@@ -441,7 +439,7 @@ producers
             </div>
             {
                 filterCheck.DealerId&&
-                <div className="FilterComRow"><Select options={dealers.map(e=>({value:e.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, DealerId:e.value})}  className="PAYselect"/></div>
+                <div className="FilterComRow"><Select options={dealers?.map(e=>({value:e.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, DealerId:e.value})}  className="PAYselect"/></div>
             }
             <div style={{width:"100%", display:"flex", flexDirection:"column", alignItems:"center"}}>
             <button onClick={()=>filterSubmit(filterValues)} className="FilterComButton">Apply Filters</button></div>

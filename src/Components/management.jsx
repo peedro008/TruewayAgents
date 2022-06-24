@@ -11,7 +11,7 @@ const Management = () => {
   return (
     <div className="genericDiv">
       <div className="genericHeader">
-        <p className="genericTitle">User and Location management</p>
+        <p className="genericTitle">Management</p>
       </div>
 
       {userRole !== "Producer" && (

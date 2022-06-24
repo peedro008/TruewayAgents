@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { MdAdd } from "react-icons/md";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { BsChevronLeft } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import "../Css/css.css";
-import { useSelector } from "react-redux";
 import { AiOutlineDelete } from "react-icons/ai";
 import Modal from "react-responsive-modal";
 

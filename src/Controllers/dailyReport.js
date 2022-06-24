@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DailyReportComponent from '../Components/dailyReport';
 
-import { addLocation } from '../Redux/actions';
+import { addLocation, getDailyReports } from '../Redux/actions';
 
 function DailyReport() {
     const [payments, setPayments] = useState([])
@@ -108,7 +108,9 @@ function DailyReport() {
             body: JSON.stringify({LocationId:LocationId, IDs:IDs, total:total  }),
             
         })
-        window.location.reload()
+        getDailyReports(dispatch)
+        window.history.go(-1)
+     
     }
     
   return (

@@ -247,7 +247,7 @@ handleNext,
                             {e.date}
                           </NavLink>
                         </p>
-                        <div className="DashStatusItem">
+                        <div className="DashStatusItem" style={{maxHeight:"40px"}}>
                           <div
                             className="DashStatusColor"
                             style={{

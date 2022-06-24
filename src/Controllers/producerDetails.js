@@ -9,7 +9,7 @@ const ProducerDetails = (props) => {
   let producer = props.location.aboutProps;
   const userId = useSelector((state) => state.UserId);
   const PRD = useSelector((state) => state.Producers);
-  let [Producer, setProducer ]= useState(null)
+  const [Producer, setProducer ]= useState(null)
   const google = useGoogleCharts();
   const [quotes, setQuotes] = useState([]);
   const [payments, setPayments] = useState([]);
@@ -70,31 +70,29 @@ const ProducerDetails = (props) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
+  }, [Producer]);
+  
+  
   useEffect(() => {
     const date = new Date();
     const DATE =
       date.getFullYear() + "-0" + (date.getMonth() + 1) + "-" + date.getDate();
-    let ys = modify;
-    let ms = modify;
-    setYstat(ys.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4)));
-    setMstat(ms.filter((e) => e.date.substring(0, 7) == DATE.substring(0, 7)));
 
-    let yq = quotes;
-    let mq = quotes;
+    setYstat(modify.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4)));
+    setMstat(modify.filter((e) => e.date.substring(0, 7) == DATE.substring(0, 7)));
+
+
     setYquotes(
-      yq.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4))
+      quotes.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4))
     );
     setMquotes(
-      mq.filter((e) => e.date.substring(0, 7) == DATE.substring(0, 7))
+      quotes.filter((e) => e.date.substring(0, 7) == DATE.substring(0, 7))
     );
 
-    let yp = payments;
-    let mp = payments;
-    setYpay(yp.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4)));
-    setMpay(mp.filter((e) => e.date.substring(0, 7) == DATE.substring(0, 7)));
-  }, [quotes, Producer, modify, payments]);
+    
+    setYpay(payments.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4)));
+    setMpay(payments.filter((e) => e.date.substring(0, 7) == DATE.substring(0, 7)));
+  }, [payments,quotes, modify]);
 
   useEffect(() => {
     let pes = 0;
@@ -125,7 +123,7 @@ const ProducerDetails = (props) => {
   }, [quotes, Producer, modify, ystat, mstat]);
 
   return (
-    // <div></div>
+
     <ProducerDetailsComponent
       quotes={quotes}
       setQuotes={setQuotes}
