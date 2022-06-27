@@ -471,13 +471,13 @@ setTotalValues,
                 </>
               )}
             </div>
-            <div className="DEPtotal1">
-                        <p className="DEPtotalT">TOTAL $ {total?total:0}</p>
-                    </div>
+           
           </div>
          
         </div>
-       
+        <div className="DEPtotal1">
+                        <p className="DEPtotalT">TOTAL $ {total?total:0}</p>
+                    </div>
         <Modal open={open} onClose={reload} center classNames={"modal"}>
           <div className="modal">
             <img

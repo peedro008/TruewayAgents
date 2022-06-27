@@ -32,7 +32,7 @@ const DealerReport = () => {
   }
   const handlePayModal = ()=>{
     PayDealer(selectedDealer)
-    window.location.reload();
+   
 
 }
   const PayDealer = (data) => {
@@ -43,7 +43,7 @@ const DealerReport = () => {
         },
         body: JSON.stringify(data),
       })
-        .then((response) => response.json())
+        .then((response) => window.location.reload())
      
   }
 

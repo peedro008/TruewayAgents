@@ -18,6 +18,9 @@ function DailyReport() {
     const [total, setTotal] =useState(0)
     const [ay, setAy]=useState(0)
     const dispatch = useDispatch()
+    const [open, setOpen] = useState(false);
+    const onOpenModal = () => setOpen(true);
+    const onCloseModal = () => window.history.go(-1);
     useEffect(()=>{
         axios.get(`https://truewayagentbackend.com/getProuducerUser?UserId=${UserId}`)
         .then(function(response){
@@ -109,7 +112,8 @@ function DailyReport() {
             
         })
         getDailyReports(dispatch)
-        window.history.go(-1)
+        onOpenModal();
+        
      
     }
     
@@ -134,6 +138,10 @@ function DailyReport() {
         setDate={setDate}
         setTotal={setTotal}
         setAy={setAy}
+        open={open}
+setOpen={setOpen}
+onOpenModal={onOpenModal}
+onCloseModal={onCloseModal}
 
     />
   )

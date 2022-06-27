@@ -65,9 +65,20 @@ const Management = () => {
             <p className="PAYbuttonText">Add Dealer</p>
           </button>
         </NavLink>
+        {userRole == "Producer" && (
+        
+        <NavLink
+          to={"./management/DealerSalePerson"}
+          style={{ textDecoration: "none", color: "#000" }}
+        >
+          <button className="PAYbutton" style={{ marginRight: "20px" }}>
+            <MdAdd color="white" size={"20px"} className="PAYbuttonIcon" />{" "}
+            <p className="PAYbuttonText">Add Dealer sale person</p>
+          </button>
+        </NavLink>)}
       </div>
-      <div className="managerContainer1">
-        {userRole !== "Producer" && (
+        {userRole !== "Producer" && (<div className="managerContainer1">
+      
           <NavLink
             to={"./management/Location"}
             style={{ textDecoration: "none", color: "#000" }}
@@ -77,7 +88,7 @@ const Management = () => {
               <p className="PAYbuttonText">Add Location</p>
             </button>
           </NavLink>
-        )}
+     
         <NavLink
           to={"./management/DealerSalePerson"}
           style={{ textDecoration: "none", color: "#000" }}
@@ -99,7 +110,7 @@ const Management = () => {
           </NavLink>
         )}
       </div>
-
+   )}
       <img
         src={Isologo_background}
         style={{

@@ -90,9 +90,9 @@ const DRreportComponent = ({deleteConf,
                         <tr>
                            
                             <td className="ClientName" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/DailyReport/details",props:e}}>{e.Location.name}</NavLink></td>  
-                            <td className="ClientName" scope="row">${e.total}</td>  
-                            <td className="ClientName" scope="row">{e.date}</td>
-                            <td className="ClientName" scope="row">{e.Payments.length} Payments</td> 
+                            <td className="ClientName" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/DailyReport/details",props:e}}>${e.total}</NavLink></td>  
+                            <td className="ClientName" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/DailyReport/details",props:e}}>{e.date}</NavLink></td>
+                            <td className="ClientName" scope="row"><NavLink style={{textDecoration: 'none', color:"#000"}} to={{pathname:"/report/DailyReport/details",props:e}}>{e.Payments.length} Payments</NavLink></td> 
                             <td className="ClientName" scope="row"  >
                                           <div style={{height:"auto",display:"flex", flexDirection:"row", alignItems:"center", justifyContent:"center" }}>
                                             <FiRefreshCcw className='deleteIcon' size={"20px"} onClick={()=>{handleDelete([e.id, e.Payments])}}/>
@@ -153,8 +153,7 @@ const DRreportComponent = ({deleteConf,
             
         
             
-            <div style={{width:"100%", display:"flex", flexDirection:"column", alignItems:"center"}}>
-            <button onClick={()=>filterSubmit(filterValues)} className="FilterComButton">Apply Filters</button></div>
+             
         </div>}
         <Modal open={open} onClose={onCloseModal} center classNames={"modal"} >
                     <div className="modal" style={{minWidth:"250px", alignItems:"center"}}>

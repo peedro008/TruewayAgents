@@ -68,7 +68,7 @@ const ManagementDealerSalePersonComponent=({
     <div style={{position:"absolute", right:"50px", top:"76px", display:"flex"}}>
             <button onClick={handleSubmit(onSubmit)} className="PAYbutton" ><p className="PAYbuttonText">Add Dealer</p></button>
         </div>
-        <Modal open={open} onClose={onCloseModal} center classNames={"modal"}>
+        <Modal open={open} onClose={onCloseModal} center  >
     <div className="modal">
         <img src={Icon} style={{width:"35px", alignSelf:"center", marginTop:"25px", marginBottom:"10px"}}/>
         

@@ -43,19 +43,19 @@ const ProducerDashboardComponent = ({
               <p className="DashPListTitle">Unsold Quotes</p>
             </div>
             <div className="DashStatusColumns">
-              <p className="dashListColumnT1">Client Name</p>
-              <p className="dashListColumnT1">Company</p>
-              <p className="dashListColumnT1">Monthly Payments</p>
-              <p className="dashListColumnT1">Down</p>
-              <p className="dashListColumnT1">Date</p>
-              <p className="dashListColumnT1">Quoted by</p>
+              <p className="dashListColumnT">Client Name</p>
+              <p className="dashListColumnT">Company</p>
+              <p className="dashListColumnT">Monthly Payments</p>
+              <p className="dashListColumnT">Down</p>
+              <p className="dashListColumnT">Date</p>
+              <p className="dashListColumnT">Quoted by</p>
             </div>
             <div className="DastStatusBody">
               {status.length ? (
                 status.map((e) => {
                   return (
                     <div className="DashStatusRow">
-                      <p className="DashStatusItem1">
+                      <p className="DashStatusItem">
                         <NavLink
                           style={{ textDecoration: "none", color: "#000" }}
                           to={{
@@ -66,7 +66,7 @@ const ProducerDashboardComponent = ({
                           {e.Client.name.substring(0, 15)}
                         </NavLink>
                       </p>
-                      <p className="DashStatusItem1">
+                      <p className="DashStatusItem">
                         <NavLink
                           style={{ textDecoration: "none", color: "#000" }}
                           to={{
@@ -77,7 +77,7 @@ const ProducerDashboardComponent = ({
                           {e.Company.name}
                         </NavLink>
                       </p>
-                      <p className="DashStatusItem1">
+                      <p className="DashStatusItem">
                         <NavLink
                           style={{ textDecoration: "none", color: "#000" }}
                           to={{
@@ -88,7 +88,7 @@ const ProducerDashboardComponent = ({
                           {e.monthlyPayment}
                         </NavLink>
                       </p>
-                      <p className="DashStatusItem1">
+                      <p className="DashStatusItem">
                         <NavLink
                           style={{ textDecoration: "none", color: "#000" }}
                           to={{
@@ -99,7 +99,7 @@ const ProducerDashboardComponent = ({
                           {e.down}
                         </NavLink>
                       </p>
-                      <p className="DashStatusItem1">
+                      <p className="DashStatusItem">
                         <NavLink
                           style={{ textDecoration: "none", color: "#000" }}
                           to={{
@@ -110,7 +110,7 @@ const ProducerDashboardComponent = ({
                           {e.date}
                         </NavLink>
                       </p>
-                      <p className="DashStatusItem1">
+                      <p className="DashStatusItem">
                         <NavLink
                           style={{ textDecoration: "none", color: "#000" }}
                           to={{

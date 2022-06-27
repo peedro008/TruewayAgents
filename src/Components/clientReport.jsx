@@ -23,11 +23,11 @@ deleteClient
 }) {
 
   return (
-    <div className="genericDiv1">
+    <div className="genericDiv">
       <div className="genericHeader">
         <p className="genericTitle">Client list</p>
       </div>
-      <div className="REPcontrol">
+      <div className="REPcontrol" style={{maxWidth:"90vw"}}>
         <div className="REPsearch">
           <SearchField
             classNames="pepe"
@@ -52,7 +52,7 @@ deleteClient
               <p className="REPtype">Client company</p>
             </th>
             <th scope="col" className="column1">
-              <p className="REPtype">Cient address</p>
+              <p className="REPtype">Client address</p>
             </th>
             <th scope="col" className="column1">
               <p className="REPtype">New</p>

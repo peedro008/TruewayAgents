@@ -24,28 +24,50 @@ function DRdetails(props) {
       CDC: false
   });
   const checkCash = () => {
+    if(checkbox.Cash){
+    setPaymentsFil(payments)
+    setCheckbox({
+      Cash: false,
+        EFT: false,
+        CDC: false})}
+        else{
     let list = payments.filter(e=>e.method=="Cash")
     setPaymentsFil(list)
-    setCheckbox({Cash: true,
+    setCheckbox({
+      Cash: true,
         EFT: false,
-        CDC: false})
+        CDC: false})}
     }
 const checkEFT = () => {
+  if(checkbox.EFT){
+    setPaymentsFil(payments)
+    setCheckbox({
+      Cash: false,
+        EFT: false,
+        CDC: false})}
+        else{
     let list = payments.filter(e=>e.method=="EFT")
     setPaymentsFil(list)
     setCheckbox({Cash: false,
         EFT: true,
-        CDC: false})
+        CDC: false})}
     }
 
 const checkCDC = () => {
+  if(checkbox.CDC){
+    setPaymentsFil(payments)
+    setCheckbox({
+      Cash: false,
+        EFT: false,
+        CDC: false})}
+        else{
     let list = payments.filter(e=>e.method=="credit/debit")
     setPaymentsFil(list)
     setCheckbox({
         Cash: false,
         EFT: false,
         CDC: true})
-    }
+    }}
 
 
   useEffect(() => {

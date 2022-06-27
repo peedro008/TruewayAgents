@@ -84,16 +84,18 @@ function ProducerNav({ onSearch }) {
           </NavLink>
         </div>
         <div className="NAcontainer">
-          <NavLink className="icons"  to='/profile'activeClassName="NAavtive">
-            <FiUser className="NAicon" size="20px" color="#868ba5" />
-          </NavLink>
-        </div>
-        <span />
-        <div className="NAcontainer">
           <NavLink className="icons" to="/report" activeClassName="NAavtive">
             <VscGraph className="NAicon" size="20px" color="#868ba5" />
           </NavLink>
         </div>
+        <span />
+        <div className="NAcontainer">
+          <NavLink className="icons"  to='/profile'activeClassName="NAavtive">
+            <FiUser className="NAicon" size="20px" color="#868ba5" />
+          </NavLink>
+        </div>
+        
+        
       </div>
     </div>
   );

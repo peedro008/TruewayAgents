@@ -139,8 +139,7 @@ setFilterCheck,
             
         
             
-            <div style={{width:"100%", display:"flex", flexDirection:"column", alignItems:"center"}}>
-            <button onClick={()=>filterSubmit(filterValues)} className="FilterComButton">Apply Filters</button></div>
+             
         </div>}
         </div>
     )

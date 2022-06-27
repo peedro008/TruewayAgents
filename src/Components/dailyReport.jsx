@@ -1,7 +1,9 @@
 
 import React from 'react'
 import { BsChevronLeft } from 'react-icons/bs';
-
+import Modal from 'react-responsive-modal';
+import Icon from "../assets/Icon.png"
+import { NavLink } from "react-router-dom";
 import SearchField from "react-search-field";
 
 
@@ -13,6 +15,10 @@ function DailyReportComponent({
     EFT,
     search,
     setSearch,
+    open,
+setOpen,
+onOpenModal,
+onCloseModal,
 
 }) {
  
@@ -32,7 +38,7 @@ function DailyReportComponent({
         /></div>
 
                 </div>
-           <table className="table2">
+           <table className="table2" style={{width:"80vw"}}>
       
         <tbody>
             <tr>
@@ -227,6 +233,19 @@ function DailyReportComponent({
             </div>    
         {/* </PDFDownloadLink> */}
         <BsChevronLeft color="grey" style={{minWidth:"30px", minHeight:"30px", position:"fixed",zIndex:9, left:"80px",top:"17px", alignSelf:"flex-start"}} onClick={()=>window.history.go(-1)}/>
+    
+        <Modal open={open} onClose={onCloseModal} center  >
+    <div className="modal">
+        <img src={Icon} style={{width:"35px", alignSelf:"center", marginTop:"25px", marginBottom:"10px"}}/>
+        
+        <p className="modalText">¡Successfull!</p>
+       
+       
+        <button  className="modalButton"> <NavLink style={{textDecoration: "none", color:"#000"}}  to={"/Management"}>Continue</NavLink></button>
+      
+        
+        </div>
+      </Modal>
     </div>
   )
 }

@@ -441,8 +441,7 @@ producers
                 filterCheck.DealerId&&
                 <div className="FilterComRow"><Select options={dealers?.map(e=>({value:e.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, DealerId:e.value})}  className="PAYselect"/></div>
             }
-            <div style={{width:"100%", display:"flex", flexDirection:"column", alignItems:"center"}}>
-            <button onClick={()=>filterSubmit(filterValues)} className="FilterComButton">Apply Filters</button></div>
+             
 
 
 

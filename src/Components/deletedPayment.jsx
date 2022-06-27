@@ -293,8 +293,7 @@ closeCloud,
                 <div className="FilterComRow"><Select options={[{value:"credit/debit", label:"Credit/Debit"},{value:"EFT", label:"EFT"},{value:"Cash", label:"Cash"}]} onChange={(e)=>setFilterValues({...filterValues, Method:e.value})}  className="PAYselect"/></div>
             }
             
-            <div style={{width:"100%", display:"flex", flexDirection:"column", alignItems:"center"}}>
-            <button onClick={()=>filterSubmit(filterValues)} className="FilterComButton">Apply Filters</button></div>
+             
         </div>}
         
         <Modal open={open} onClose={onCloseModal} center classNames={"modal"} >

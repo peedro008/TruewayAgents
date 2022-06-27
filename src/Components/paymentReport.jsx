@@ -163,7 +163,7 @@ closeCloud,
           onClick={() => setOpenFilter(!openFilter)}
         />
       </div>
-      <table class="table2">
+      <table class="table1">
         <tbody>
           <tr>
           <th scope="col" className="column1"><p   className="REPtype">&nbsp;</p></th>
