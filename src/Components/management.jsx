@@ -65,7 +65,7 @@ const Management = () => {
             <p className="PAYbuttonText">Add Dealer</p>
           </button>
         </NavLink>
-        {userRole == "Producer" && (
+        
         
         <NavLink
           to={"./management/DealerSalePerson"}
@@ -75,7 +75,7 @@ const Management = () => {
             <MdAdd color="white" size={"20px"} className="PAYbuttonIcon" />{" "}
             <p className="PAYbuttonText">Add Dealer sale person</p>
           </button>
-        </NavLink>)}
+        </NavLink>
       </div>
         {userRole !== "Producer" && (<div className="managerContainer1">
       
@@ -89,15 +89,7 @@ const Management = () => {
             </button>
           </NavLink>
      
-        <NavLink
-          to={"./management/DealerSalePerson"}
-          style={{ textDecoration: "none", color: "#000" }}
-        >
-          <button className="PAYbutton" style={{ marginRight: "20px" }}>
-            <MdAdd color="white" size={"20px"} className="PAYbuttonIcon" />{" "}
-            <p className="PAYbuttonText">Add Dealer sale person</p>
-          </button>
-        </NavLink>
+ 
         {userRole !== "Producer" && (
           <NavLink
             to={"./management/Category"}

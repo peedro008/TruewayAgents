@@ -281,6 +281,7 @@
   }
   .genericHeader {
     padding-top: 23px;
+    margin-bottom: 5px;
     padding-left: 40px;
   }
 
@@ -296,7 +297,6 @@
     cursor: pointer;
     justify-content: center;
     padding-right: 20px;
-    margin-top: 25px;
     padding-left: 16px;
     box-shadow: 2px 2px 2px rgb(165, 162, 162);
   }
@@ -315,7 +315,7 @@
     display: flex;
     width: 550px;
     justify-content: space-between;
-    margin-top: 35px;
+    margin-top: 25px;
     padding-left: 40px;
   }
 
@@ -397,6 +397,7 @@
     display: flex;
     justify-content: left;
     padding-left: 1.5%;
+
     margin-top: 25px;
     padding-left: 40px;
   }
@@ -406,7 +407,7 @@
     display: flex;
     justify-content: left;
     padding-left: 1.5%;
-    margin-top: 35px;
+    margin-top: 25px;
     padding-left: 40px;
   }
   .managerInputsContainer {
@@ -1674,7 +1675,7 @@
   /*-------------MODAL---------*/
   .react-responsive-modal-modal {
     min-width: 250px;
-    border-radius: 20px;
+    border-radius: 10px;
   }
   .modal {
     height: 242px;
@@ -1719,7 +1720,8 @@
     margin-top: 20px;
   }
   .modalButton:hover {
-  background-color: #7ebeec;
+  background-color: #2b4162;
+  color: white;
   }
 
   /*----------------DEPOSIT-------------------*/

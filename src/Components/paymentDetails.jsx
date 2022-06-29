@@ -98,27 +98,7 @@ function PaymentDetailsComponent({ payment, id }) {
           </div>
         </div>
       )}
-      <NavLink
-        to={{
-          pathname: "/report/modifyquote",
-          aboutProps: id,
-        }}
-      >
-        <button className="FITbutton">
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <BiPencil
-              size="20px"
-              style={{
-                display: "flex",
-                color: "#2B4162",
-                marginLeft: "8px",
-                marginTop: "1px",
-              }}
-            />
-            <p className="FITbuttonText">Modify quote</p>
-          </div>
-        </button>
-      </NavLink>
+
              
 <BsChevronLeft color="grey" style={{minWidth:"30px", minHeight:"30px", position:"fixed",zIndex:9, left:"80px",top:"17px", alignSelf:"flex-start"}} onClick={()=>window.history.go(-1)}/>
     </div>
