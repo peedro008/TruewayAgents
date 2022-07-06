@@ -25,7 +25,7 @@ function ClientEdit(props) {
   const onCloseModal = () => setOpen(false);
 const dispatch = useDispatch	()
   const handleClick = () => {
-    fetch(`https://truewayagentbackend.com/modifyClient`, {
+    fetch(` https://truewayagentbackend.com/modifyClient`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

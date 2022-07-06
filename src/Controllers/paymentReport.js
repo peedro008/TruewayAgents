@@ -17,17 +17,10 @@ const PaymentReport = () => {
   const producers = useSelector((state) => state.Producers);
   const clients = useSelector((state) => state.Clients);
   const locations = useSelector((state) => state.Locations);
- 
+  const [paginator, setPaginator] = useState(1);
   
   const [filterValues, setFilterValues] = useState({
-    dateFrom: null,
-    dateTo: null,
-    dateClientId: null,
-    ClientTel: null,
-    ProducerId: null,
-    LocationId: null,
-    Method: null,
-    Type: null,
+    offset: 0,
   });
   const [filterCheck, setFilterCheck] = useState({
     date: false,
@@ -51,7 +44,7 @@ const PaymentReport = () => {
   };
   const deleteClient = (data) => {
     data && console.log(data);
-    fetch(`https://truewayagentbackend.com/deletePayment`, {
+    fetch(` https://truewayagentbackend.com/deletePayment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,8 +71,10 @@ const PaymentReport = () => {
   };
 
   useEffect(() => {
+    let params = new URLSearchParams();
+    params.append("offset", 0);
     axios
-      .get(`https://truewayagentbackend.com/getPayments`)
+      .get(` https://truewayagentbackend.com/getPaymentsReport`, { params })
       .then(function (response) {
         setPayments(response.data);
       })
@@ -87,7 +82,22 @@ const PaymentReport = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [setPayments]);
+  }, []);
+
+  useEffect(()=>{
+    let params = new URLSearchParams();
+    params.append("offset", (paginator-1)*20);
+    axios
+      .get(` https://truewayagentbackend.com/getPaymentsReport`, { params })
+      .then(function (response) {
+        setPayments(response.data);
+      })
+
+      .catch((error) => {
+        setPayments([]);
+        console.log(error);
+      });
+  },[paginator])
 
 
   const filterSubmit = (e) => {
@@ -162,6 +172,8 @@ const PaymentReport = () => {
     deleteClient={deleteClient}
     filterSubmit={filterSubmit}
     closeCloud={closeCloud}
+    paginator={paginator}
+    setPaginator={setPaginator}
   />
   );
 };

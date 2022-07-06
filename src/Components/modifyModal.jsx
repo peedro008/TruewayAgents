@@ -272,8 +272,8 @@ const ModifyModalComponent = ({
               
             </div> */}
         </div>
-        <button className="FITbutton" onClick={submit}>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+        <button className="FITbutton" onClick={submit} style={{marginTop:"-30px"}}>
+          <div style={{ display: "flex", flexDirection: "row", }}>
             <BiPencil
               size="20px"
               style={{

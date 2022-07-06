@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../Css/css.css";
 import {
   addLocation,
@@ -25,13 +25,13 @@ const Auth = () => {
   useEffect(() => {
     window.history.pushState("", "", "/");
   }, []);
-
+  const producers = useSelector((state) => state.Producers);
   const onSubmitHandler = (UserName, Password) => {
     const payload = {
       UserName,
       Password,
     };
-    fetch(`https://truewayagentbackend.com/login`, {
+    fetch(` https://truewayagentbackend.com/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,6 +54,7 @@ const Auth = () => {
             dispatch(user(payload.UserName));
             dispatch(userName(jsonRes.Name));
             dispatch(userId(jsonRes.userId));
+            dispatch(addLocation(producers.filter(e=>e.UserId==jsonRes.userId).LocatioId?producers.filter(e=>e.UserId==jsonRes.userId).LocatioId:1));
           }
         } catch (err) {
           onOpenModal();

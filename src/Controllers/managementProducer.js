@@ -30,7 +30,7 @@ const ManagementProducer=()=>{
         data&&
         setinputs({...inputs, UserRole:"Producer"})
         
-        fetch(`https://truewayagentbackend.com/addProducer`, {
+        fetch(` https://truewayagentbackend.com/addProducer`, {
             
             method: 'POST',
             headers: {

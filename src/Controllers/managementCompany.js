@@ -35,7 +35,7 @@ const ManagerCompany = () => {
  
   const onSubmit = (data) => {
     data && console.log(JSON.stringify(data));
-    fetch(`https://truewayagentbackend.com/addCompany`, {
+    fetch(` https://truewayagentbackend.com/addCompany`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -10,7 +10,7 @@ import { BsChevronLeft, BsInfoCircle } from "react-icons/bs";
 import Select from 'react-select'
 import close from "../assets/close.svg";
 
-import {AiOutlineDelete, AiOutlineCloseCircle} from "react-icons/ai"
+import {AiOutlineDelete, AiOutlineCloseCircle, AiOutlineLeft, AiOutlineRight} from "react-icons/ai"
 
 import Modal from 'react-responsive-modal';
 import spinnerr from "../assets/spinnerr.gif"
@@ -52,7 +52,9 @@ setOpenFilter,
 columns,
 onCloseModal,
 onCloseModal1,
-producers
+producers,
+paginator,
+setPaginator
 })=>{
     
     return(
@@ -236,7 +238,15 @@ producers
 
         </tbody>
         </table>
-       
+        <div className="PaginatorBox">
+            <div className="PaginatorLeft"  onClick={()=>{paginator!==1&&setPaginator(paginator-1)}}>
+                <AiOutlineLeft  color="#858585" size={"20px"}/>
+            </div>
+            <div className="PaginatorNum">{paginator}</div>
+            <div className="PaginatorRight" onClick={()=>{quotes.length>19&&setPaginator(paginator+1)}}>
+                <AiOutlineRight color="#858585" size={"20px"}/>
+            </div>
+        </div>
 <BsChevronLeft color="grey" style={{minWidth:"30px", minHeight:"30px", position:"fixed",zIndex:9, left:"80px",top:"17px", alignSelf:"flex-start"}} onClick={()=>window.history.go(-1)}/>
 
 

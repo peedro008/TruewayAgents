@@ -136,7 +136,7 @@ onCloseModal
     <div className="modal">
         <img src={Icon} style={{width:"35px", alignSelf:"center", marginTop:"25px", marginBottom:"10px"}}/>
         
-        <p className="modalText">Payment added successfully</p>
+        <p className="modalText">Deposit added successfully</p>
        
        
         <button  className="modalButton"> <NavLink style={{textDecoration: "none", color:"#000"}}  to={"/payments"}>Continue</NavLink></button>

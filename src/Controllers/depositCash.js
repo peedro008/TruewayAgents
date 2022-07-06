@@ -42,7 +42,7 @@ const DepositCash = () => {
     const submit = () =>{
         let data = {id:id, UserId: UserId, LocationId: LocationId, note: note, total: total}
         onOpenModal()
-        fetch(`https://truewayagentbackend.com/deposit`, {
+        fetch(` https://truewayagentbackend.com/deposit`, {
                     
             method: 'POST',
             headers: {

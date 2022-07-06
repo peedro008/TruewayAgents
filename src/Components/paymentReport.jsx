@@ -10,7 +10,7 @@ import close from "../assets/close.svg";
 
 import Modal from "react-responsive-modal";
 import pdf from "../assets/pdf.svg";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import MyDocument from "../PDF/prueba";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -46,6 +46,8 @@ handleDeleteModal,
 deleteClient,
 filterSubmit,
 closeCloud,
+paginator,
+setPaginator
 }) => {
   
   return (
@@ -107,7 +109,7 @@ closeCloud,
             <div className="cloudFilter">
               <p className="cloudFilterText">
                 Producer name:
-                {producers.find((c) => c.id == filterValues.ProducerId)?.name}
+                {producers.find((c) => c.UserId == filterValues.ProducerId)?.name}
               </p>
               <img
                 src={close}
@@ -345,6 +347,15 @@ closeCloud,
         }}
         onClick={() => window.history.go(-1)}
       />
+      <div className="PaginatorBox">
+            <div className="PaginatorLeft"  onClick={()=>{paginator!==1&&setPaginator(paginator-1)}}>
+                <AiOutlineLeft  color="#858585" size={"20px"}/>
+            </div>
+            <div className="PaginatorNum">{paginator}</div>
+            <div className="PaginatorRight" onClick={()=>{payments.length>19&&setPaginator(paginator+1)}}>
+                <AiOutlineRight color="#858585" size={"20px"}/>
+            </div>
+        </div>
       {openFilter && (
         <div className="FilterCom">
           <div className="FilterComTitleD">
@@ -610,21 +621,7 @@ closeCloud,
             </div>
           )}
 
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <button
-              onClick={() => filterSubmit(filterValues)}
-              className="FilterComButton"
-            >
-              Apply Filters
-            </button>
-          </div>
+          
         </div>
       )}
 

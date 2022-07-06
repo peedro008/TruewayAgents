@@ -39,7 +39,7 @@ const ProducerDetails = (props) => {
   },[userId])
   useEffect(() => {
     axios
-      .get(`https://truewayagentbackend.com/producerQuotes?UserId=${Producer?.UserId}`)
+      .get(` https://truewayagentbackend.com/producerQuotes?UserId=${Producer?.UserId}`)
       .then(function (response) {
         setQuotes(response.data);
 
@@ -51,7 +51,7 @@ const ProducerDetails = (props) => {
   }, [Producer]);
   useEffect(() => {
     axios
-      .get(`https://truewayagentbackend.com/getUserPayment?UserId=${Producer?.UserId}`)
+      .get(` https://truewayagentbackend.com/getUserPayment?UserId=${Producer?.UserId}`)
       .then(function (response) {
         setPayments(response.data);
       })
@@ -61,7 +61,7 @@ const ProducerDetails = (props) => {
   }, [Producer]);
   useEffect(() => {
     axios
-      .get(`https://truewayagentbackend.com/getStatus`)
+      .get(` https://truewayagentbackend.com/getStatus`)
       .then(function (response) {
         let paz = response.data;
 
