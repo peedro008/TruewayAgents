@@ -3,7 +3,6 @@ import React from "react";
 import { MdAdd } from "react-icons/md";
 import { BsChevronLeft } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-
 import { FiRefreshCcw } from "react-icons/fi";
 import Modal from "react-responsive-modal";
 const DeletedProducersComponent = ({
