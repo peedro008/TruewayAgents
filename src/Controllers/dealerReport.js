@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import DealerReportComponent from "../Components/dealerReport";
 import { useSelector } from "react-redux";
+import axios from "axios"
 const DealerReport = () => {
   const [dealerFil, setDealerFil] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
 
+  const [Dealers, setDealers] = useState(null);
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
@@ -25,7 +27,7 @@ const DealerReport = () => {
   const clients = useSelector((state) => state.Clients);
 
   const dealerSalePerson = useSelector((state) => state.DealerSalesPersons);
-  const Dealers = useSelector((state) => state.Dealers);
+
   const handleOpenModal = (e) =>{
     setSelectedDealer({id:e.id})
     onOpenModal()
@@ -35,8 +37,9 @@ const DealerReport = () => {
    
 
 }
+
   const PayDealer = (data) => {
-    fetch(` https://truewayagentbackend.com/paidDealer`, {
+    fetch(`https://www.truewayagentbackend.com/paidDealer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +51,16 @@ const DealerReport = () => {
   }
 
 
-
+  useEffect(() => {
+    axios
+      .get(`https://www.truewayagentbackend.com/getDealers`)
+      .then(function (response) {
+        setDealers(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   const filterSubmit = (e) => {
       let temp = Dealers
       if(e.dateFrom&&e.dateTo){

@@ -50,7 +50,7 @@ const ProducerEdit = (props) => {
   };
 
   const onSubmit = (data) => {
-    fetch(` https://truewayagentbackend.com/modifyProducer`, {
+    fetch(`https://www.truewayagentbackend.com/modifyProducer`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

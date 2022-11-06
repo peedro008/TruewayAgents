@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminNav from "../Navs/adminNav";
 import Management from "../Components/management";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -42,12 +42,51 @@ import ProducerEdit from "../Controllers/producerEdit";
 import ManagerEdit from "../Controllers/managerEdit";
 import ClientEdit from "../Controllers/clientEdit";
 import PaymentDetails from "../Controllers/paymentDetails";
+import Stadistic from "../Controllers/stadistic";
+import GenericReport from "../Controllers/genericReport";
+import { FetchAll } from "../Logic/Fetch";
+import { useDispatch, useSelector } from "react-redux";
+import { addLocation } from "../Redux/actions";
 
 const AdminRouter = () => {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    FetchAll(dispatch)
+  },[])
+  
+   const User = useSelector(state=>state.User)
+   const UserRole = useSelector(state=>state.userRole)
+ useEffect(() => {
+  UserRole=="Manager"&&
+  fetch(`https://www.truewayagentbackend.com/getProducerFilter?Id=${User.userId}&UserRole=${UserRole}`, {
+     method: "GET",
+     headers: {
+       "Content-Type": "application/json",
+     },
+    
+   })
+     .then(async (res) => {
+      
+         const jsonRes = await res.json();
+ 
+       
+           dispatch(addLocation(jsonRes[0].LocationId));
+         
+          
+           
+      
+       })
+ 
+     .catch((err) => {
+       console.log(err);
+ 
+     });
+ }, [User,UserRole])
   return (
     <Router>
       <Route component={AdminNav} />
       <Route exact path='/' component={AdminDashboard}/>
+      <Route exact path='/stadistic' component={Stadistic}/>
       <Route exact path="/management" component={Management} />
       <Route exact path="/report" component={ReportsLobby} />
       <Route exact path="/report/Deleted" component={DeletedLobby} />
@@ -88,6 +127,7 @@ const AdminRouter = () => {
       <Route exact path='/users/producers/edit' component={ProducerEdit}/>
       <Route exact path='/users/manager/edit' component={ManagerEdit}/>
       <Route exact path='/report/payment/details' component={PaymentDetails}/>
+      <Route exact path='/report/genericReport' component={GenericReport}/>
     </Router>
   );
 };

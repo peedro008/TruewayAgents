@@ -7,28 +7,20 @@ import { NavLink } from "react-router-dom";
 
 const ProducerDashboardComponent = ({
   NSD,
-  setNSD,
-  asd,
-  setAsd,
-  pquotes,
-  setPquotes,
+
   uQuotes,
-  setUQuotes,
+ 
   sQuotes,
-  setSQuotes,
+  quotex,
   dataList,
-  setDataList,
+
   status,
-  setStatus,
+
   payments,
-  setPayments,
-  dispatch,
-  google,
-  producers,
-  UserId,
+
   modify,
   quotes2,
-  userId,
+  UserId,
 }) => {
   return (
     <div className="genericDiv">
@@ -51,7 +43,7 @@ const ProducerDashboardComponent = ({
               <p className="dashListColumnT">Quoted by</p>
             </div>
             <div className="DastStatusBody">
-              {status.length ? (
+              {status?.length ? (
                 status.map((e) => {
                   return (
                     <div className="DashStatusRow">
@@ -153,11 +145,11 @@ const ProducerDashboardComponent = ({
                   </div>
                   <div className="DashNumberDiv">
                     <p className="DashNumber">
-                      {e[1] / e[2]
-                        ? e[1] / e[2] > 1
-                          ? 100
-                          : ((e[1] / e[2]) * 100).toFixed(0)
-                        : 0}
+                    {e[1] / e[2]
+                          ? e[1] / e[2] > 1
+                            ? 100
+                            : ((e[1] / e[2]) * 100).toFixed(0)
+                          : 0}
                       %
                     </p>
                   </div>
@@ -177,12 +169,7 @@ const ProducerDashboardComponent = ({
             <div className="dashText">
               <p className="dashCardTitle">
                 {
-                  quotes2.filter(
-                    (e) =>
-                      e.QuoteStatuses.sort(function (a, b) {
-                        return b.id - a.id;
-                      })[0].Status == "Quoted"
-                  ).length
+                 quotex?.filter(e=>e.id==UserId)[0]?.unsold
                 }
               </p>
               <p className="dashCardText">Unsold quotes</p>
@@ -197,9 +184,7 @@ const ProducerDashboardComponent = ({
             </div>
             <div className="dashText">
               <p className="dashCardTitle">
-                {modify.filter((e) => e.Status == "Sold").length
-                  ? modify.filter((e) => e.Status == "Sold").length
-                  : 0}
+                {quotex?.filter(e=>e.id==UserId)[0]?.sold}
               </p>
               <p className="dashCardText">Total quotes sold per month</p>
             </div>
@@ -213,7 +198,7 @@ const ProducerDashboardComponent = ({
             </div>
             <div className="dashText">
               <p className="dashCardTitle">${NSD}</p>
-              <p className="dashCardText">Total NSD sales</p>
+              <p className="dashCardText">Total NSD commision</p>
             </div>
           </div>
           <div className="dashCard" style={{ marginLeft: "50px" }}>

@@ -25,13 +25,17 @@ const schema = yup
     monthlyPayment: yup.string().optional(),
     NSDamount: yup.string().optional().default("0"),
     Bound: yup.bool().required(),
-    PIPvalue: yup.string().optional().default("0"),
+    PIPamount: yup.string().optional().default("0"),
     TotalPremium: yup.string().optional().default("0"),
-    MVRvalue: yup.string().optional().default("0"),
+    MVRamount: yup.string().optional().default("0"),
     name: yup.string().optional().min(1),
     email: yup.string().optional().email().min(1),
-    tel: yup.string().optional().min(6),
+    tel: yup.string().optional().nullable().default(null).min(6),
     new: yup.bool().optional(),
+    CategoryNsd: yup.number().optional().nullable(false),
+    address: yup.string().optional().nullable().default(null),
+    date: yup.string().optional().nullable().default(null),
+
   })
   .required();
 
@@ -40,10 +44,11 @@ const AddQuote = () => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
-  const userId = useSelector((state) => state.UserId);
+  const User = useSelector((state) => state.User);
   const [newClient, setNewClient] = useState(false);
   const [inputs, setInputs] = useState({ Bound: false });
-
+  const [CategoAux, setCategoAux] = useState(false);
+  const [show, setShow] = useState(true);
   const [ERR, setERR] = useState({ ClientId: false });
   const [dealerData, setDealerData] = useState({
     ClientId: null,
@@ -59,6 +64,7 @@ const AddQuote = () => {
     setValue,
   } = useForm({
     resolver: yupResolver(schema),
+    delayError:5
   });
   const categories = useSelector((state) => state.Categories);
   const companies = useSelector((state) => state.Companies);
@@ -66,8 +72,13 @@ const AddQuote = () => {
 
   const dealers = useSelector((state) => state.DealerSalesPersons);
   const locations = useSelector((state) => state.Locations);
+
+  const date = new Date();
+ const DATE =
+    date.getFullYear() + ( (date.getMonth() + 1)>9?"-":"-0" )+ (date.getMonth() + 1)+"-" + date.getDate()
   useEffect(() => {
-    setValue("UserId", parseInt(userId));
+    setValue("UserId", parseInt(User.userId));
+    setValue("date", DATE);
   }, []);
   const customStyles = {
     control: (base) => ({
@@ -92,7 +103,7 @@ const AddQuote = () => {
   };
 
   const reload = () => {
-    window.location.reload();
+    window.history.go(-1)
   };
 
   const reset = (event) => {
@@ -104,9 +115,10 @@ const AddQuote = () => {
   };
 
   const onSubmit = (data) => {
-    (!data.PIPvalue || data.PIPvalue == "") && setValue("PIPvalue", "0");
+    (!data.PIPamount || data.PIPamount == "") && setValue("PIPamount", "0");
     (!data.NSDamount || data.NSDamount) == "" && setValue("NSDamount", "0");
-    (!data.MVRvalue || data.MVRvalue == "") && setValue("MVRvalue", "0");
+    (!data.MVRamount || data.MVRamount == "") && setValue("MVRamount", "0");
+    
     !data.Bound && setValue("Bound", false);
     !data.totalPremium ||
       (data.totalPremium == "" && setValue("totalPremium", "0"));
@@ -114,26 +126,27 @@ const AddQuote = () => {
       (data.monthlyPayments == "" && setValue("monthlyPayment", "0"));
     setValue("Bound", `${inputs.Bound}`);
 
-    fetch(` https://truewayagentbackend.com/addQuote`, {
+    fetch(`https://www.truewayagentbackend.com/addQuote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((data) => {
+      .then((response) => {response.json()
+      
+     
+        if(inputs.DealerSalePerson&&inputs.DealerSalePerson==true){handleDealer(data.ClientId);}
         
-        handleDealer(data.ClientId);
-        
-      })
+      
 
-      onOpenModal();
+        onOpenModal();
+      })
   };
   const handleDealer = (x=null) => {
-    inputs.DealerSalePerson &&
+   
     !x?
-      fetch(` https://truewayagentbackend.com/addDealer`, {
+      fetch(`https://www.truewayagentbackend.com/addDealer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +170,7 @@ const AddQuote = () => {
           console.log(err);
         })
         :
-        fetch(` https://truewayagentbackend.com/addDealer`, {
+        fetch(`https://www.truewayagentbackend.com/addDealer`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -182,10 +195,17 @@ const AddQuote = () => {
             }) 
   };
   const handleNewClient = () => {
-    setValue("ClientId", null);
-    setNewClient(!newClient);
+
+    setValue("ClientId", null)
+    setValue("email", null);
+    setValue("name", null);
+    setValue("phone", null);
+    setValue("address", null);
+    setNewClient(!newClient)
+  
+    
   };
-  const optionsCa = categories?.map((e) => ({ value: e.id, label: e.name }));
+  const optionsCa = categories?.map((e) => ({ value: e.id, label: e.name, NSD:e.NSDvalue}));
   const optionsCo = companies?.map((e) => ({ value: e.id, label: e.name }));
   const optionsL = locations?.map((e) => ({ value: e.id, label: e.name }));
   const optionsD = dealers?.map((e) => ({ value: e.id, label: e.name }));
@@ -222,7 +242,12 @@ const AddQuote = () => {
       dealers={dealers}
       locations={locations}
       dealerData={dealerData}
+      setValue={setValue}
       setDealerData={setDealerData}
+CategoAux={CategoAux}
+      setCategoAux={setCategoAux}
+show={show}
+      setShow={setShow}
     />
   );
 };

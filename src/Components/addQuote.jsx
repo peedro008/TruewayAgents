@@ -8,12 +8,16 @@ import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Icon from "../assets/Icon.png";
 import { Controller } from "react-hook-form";
+import { GrCircleQuestion } from "react-icons/gr";
+import { GeoapifyContext, GeoapifyGeocoderAutocomplete } from "@geoapify/react-geocoder-autocomplete";
 
 
 
 
 const AddQuoteComponent = ({
     reset,
+CategoAux,
+    setCategoAux,
     onSubmit,
     handleNewClient,
     register,
@@ -28,6 +32,7 @@ const AddQuoteComponent = ({
     optionsC,
     neww,
     open,
+    setValue,
     setNeww,
     setOpen,
     onCloseModal,
@@ -42,7 +47,9 @@ const AddQuoteComponent = ({
     dealers,
     locations,
     dealerData,
-    setDealerData
+    setDealerData,
+show,
+    setShow,
 }) => {
 
     const customStyles = {
@@ -151,6 +158,9 @@ const AddQuoteComponent = ({
               </div>
             )}
 
+
+           
+
             {newClient && (
               <div className="AQinputContainer">
                 <p className="AQinputName">New client</p>
@@ -175,6 +185,50 @@ const AddQuoteComponent = ({
             )}
           </div>
 
+
+          {newClient && 
+ <div className="AQrowContainer">
+  <div className="AQinputContainer"> 
+  <div style={{flexDirection:"row", display:"flex"}}> <p className="PAYtitle">Address</p><GrCircleQuestion onClick={()=>setShow(!show)}/></div>
+              {!show ? (
+                <div class="autocomplete-container" id="autocomplete-container">
+                   <Controller
+                control={control}
+                name="address"
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                   <GeoapifyContext apiKey="fae2fbe3125e4b1d870dd3ab7c96f6b3">
+                    <GeoapifyGeocoderAutocomplete
+                      placeSelect={(value) => {
+                     
+                        onChange(value.properties.formatted);
+                      }}
+                      suggestionsChange={(value) => {
+                        console.log(value);
+                      }}
+                    />
+                  </GeoapifyContext>
+                )}
+                />
+                 
+                </div>
+              ) : (
+                <input
+               
+                {...register("address")}
+                  placeholder="Address"
+                  className="AQinput"
+                ></input>
+              )}
+          <p className="FORMerror">{errors.address?.message}</p></div>
+ 
+
+
+            <div  className="AQinputContainer"></div>
+            <div  className="AQinputContainer"></div>
+ </div>
+
+}
+
           <div className="AQrowContainer">
             <div className="AQinputContainer">
               <p className="AQinputName">Category</p>
@@ -184,7 +238,10 @@ const AddQuoteComponent = ({
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Select
                     value={optionsCa.find((c) => c.value === value)}
-                    onChange={(val) => onChange(val.value)}
+                    onChange={(val) =>{ onChange(val.value)
+                      setValue("CategoryNsd", optionsCa.find((c) => c.value === val.value).NSD)
+                      setCategoAux(true)
+                    }}
                     control={control}
                     options={categories.map((e) => ({
                       value: e.id,
@@ -399,6 +456,7 @@ const AddQuoteComponent = ({
                   <input
                     className="AQcheckInput"
                     type="checkbox"
+                                    disabled={CategoAux?false:true}
                     checked={inputs.NSD}
                     value={inputs.NSD}
                     key="NSD"
@@ -456,10 +514,10 @@ const AddQuoteComponent = ({
                       className="AQinput2"
                       placeholder="How much"
                       defaultValue={0}
-                      key="MVRvalue"
-                      name="MVRvalue"
-                      value={inputs.MVRvalue}
-                      {...register("MVRvalue")}
+                      key="MVRamount"
+                      name="MVRamount"
+                      value={inputs.MVRamount}
+                      {...register("MVRamount")}
                     />
                     <p className="FORMerror">{errors.NSDamount?.message}</p>{" "}
                   </>
@@ -497,7 +555,7 @@ const AddQuoteComponent = ({
                       defaultValue={0}
                       key="dealerSalePerson"
                       name="dealerSalePerson"
-                      {...register("PIPvalue")}
+                      {...register("PIPamount")}
                     />
                     <p className="FORMerror">{errors.NSDamount?.message}</p>
                   </>
@@ -505,8 +563,7 @@ const AddQuoteComponent = ({
               </div>
             </div>
           </div>
-
-          <div className="AQinputContainer" style={{ marginTop: "20px" }}>
+<div style={{flexDirection:"row", display:"flex", width:"80%"}}>         <div className="AQinputContainer" >
             <p className="AQinputName">Notes</p>
             <textarea
               className="AQtextarea"
@@ -518,6 +575,29 @@ const AddQuoteComponent = ({
             />
             <p className="FORMerror">{errors.notes?.message}</p>
           </div>
+          <div
+              className="AQinputContainer"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: "start",
+              }}
+            >
+              <p className="AQinputName">Date?</p>
+              <input
+              type={"date"}
+                className="AQinput"
+                placeholder="Monthly payment"
+                key="monthlyPayment"
+                name="monthlyPayment"
+                {...register("date")}
+              />
+              <p className="FORMerror">
+                {errors.monthlyPayment?.message.substring(0, 24)}
+              </p>
+            </div>
+              
+            </div>  
         </form>
       </div>
 

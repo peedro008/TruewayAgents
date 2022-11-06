@@ -8,6 +8,7 @@ import {
   GeoapifyGeocoderAutocomplete,
   GeoapifyContext,
 } from "@geoapify/react-geocoder-autocomplete";
+import { GrCircleQuestion } from "react-icons/gr";
 function ClientEditComponent({
   Client,
   inputs,
@@ -20,6 +21,10 @@ function ClientEditComponent({
   onOpenModal,
   onCloseModal,
   handleClick,
+  show,
+  address,
+setAddress,
+  setShow,
   options,
 }) {
   return (
@@ -104,26 +109,31 @@ function ClientEditComponent({
               className="PAYsub-title"
             ></input>
           </div>
-          <div className="inputDiv">
-            <p className="PAYtitle">Address</p>
-            <div class="autocomplete-container" id="autocomplete-container">
-              <GeoapifyContext apiKey="fae2fbe3125e4b1d870dd3ab7c96f6b3">
-                <GeoapifyGeocoderAutocomplete
-                  placeSelect={(value) => {
-                    setInputs({
-                      ...inputs,
-                      address: value.properties.formatted,
-                    });
-                  }}
-                  defaultValue={inputs.address}
-                  suggestionsChange={(value) => {
-                    console.log(value);
-                  }}
-                />
-              </GeoapifyContext>
+          <div className="inputDiv" style={{ marginRight: "52%" }}>
+            <div style={{flexDirection:"row", display:"flex"}}> <p className="PAYtitle">Address</p><GrCircleQuestion onClick={()=>setShow(!show)}/></div>
+              {!show ? (
+                <div class="autocomplete-container" id="autocomplete-container">
+                  <GeoapifyContext apiKey="fae2fbe3125e4b1d870dd3ab7c96f6b3">
+                    <GeoapifyGeocoderAutocomplete
+                      placeSelect={(value) => {
+                        setAddress(value.properties.formatted);
+                      }}
+                      suggestionsChange={(value) => {
+                        console.log(value);
+                      }}
+                    />
+                  </GeoapifyContext>
+                </div>
+              ) : (
+                <input
+                    onChange={(e)=>{setAddress(e.target.value)}}
+                  placeholder="Address"
+                  className="AQinput"
+                  defaultValue={address}
+                ></input>
+              )}
             </div>
-          </div>
-        </div>
+         </div>
         <div className="managerInputsubContainer">
           <div className="MOBinputDiv">
             <p className="MOBinputText">Notes</p>

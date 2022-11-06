@@ -70,7 +70,7 @@ setPaginator
                 src={close}
                 style={{ marginLeft: "5px" }}
                 onClick={() => {
-                  closeCloud({ ...filterValues, dateFrom: null, dateTo: null });
+                  closeCloud({});
                 }}
               />
             </div>
@@ -85,7 +85,7 @@ setPaginator
                 src={close}
                 style={{ marginLeft: "5px" }}
                 onClick={() => {
-                  closeCloud({ ...filterValues, ClientId: null });
+                  closeCloud({});
                 }}
               />
             </div>
@@ -100,7 +100,7 @@ setPaginator
                 src={close}
                 style={{ marginLeft: "5px" }}
                 onClick={() => {
-                  closeCloud({ ...filterValues, ClientTel: null });
+                  closeCloud({});
                 }}
               />
             </div>
@@ -115,7 +115,7 @@ setPaginator
                 src={close}
                 style={{ marginLeft: "5px" }}
                 onClick={() => {
-                  closeCloud({ ...filterValues, ProducerId: null });
+                  closeCloud({});
                 }}
               />
             </div>
@@ -130,7 +130,7 @@ setPaginator
                 src={close}
                 style={{ marginLeft: "5px" }}
                 onClick={() => {
-                  closeCloud({ ...filterValues, LocationId: null });
+                  closeCloud({});
                 }}
               />
             </div>
@@ -142,7 +142,7 @@ setPaginator
                 src={close}
                 style={{ marginLeft: "5px" }}
                 onClick={() => {
-                  closeCloud({ ...filterValues, CompanyId: null });
+                  closeCloud({});
                 }}
               />
             </div>
@@ -154,7 +154,7 @@ setPaginator
                 src={close}
                 style={{ marginLeft: "5px" }}
                 onClick={() => {
-                  closeCloud({ ...filterValues, CompanyId: null });
+                  closeCloud({});
                 }}
               />
             </div>
@@ -250,30 +250,30 @@ setPaginator
                     {e.time.substring(11, 16)}
                   </td>
                   <td className="ClientName" scope="row">
-                    ${e.amount}
+                    ${parseFloat(e.amount).toFixed(2)}
                   </td>
                   <td className="ClientName" scope="row">
                     {e.method}
                   </td>
                   <td className="ClientName" scope="row">
-                    ${e.creditCardFee}
+                    ${parseFloat(e.creditCardFee).toFixed(2)}
                   </td>
                   <td className="ClientName" scope="row">
-                    ${e.PIPvalue}
+                    ${parseFloat(e.PIPvalue).toFixed(2)}
                   </td>
                   <td className="ClientName" scope="row">
-                    ${e.NSDvalue}
+                    ${(e.NSDvalue?parseFloat(e.NSDvalue).toFixed(2):0)}
                   </td>
                   <td className="ClientName" scope="row">
-                    ${e.MVRvalue}
+                    ${parseFloat(e.MVRvalue).toFixed(2)}
                   </td>
                   <td className="ClientName" scope="row">
                     $
-                    {parseFloat(e.amount) +
-                      parseFloat(e.PIPvalue) +
-                      parseFloat(e.NSDvalue) +
-                      parseFloat(e.MVRvalue) +
-                      parseFloat(e.creditCardFee)}
+                    {((e.amount?parseFloat(e.amount):0) +
+                      (e.PIPvalue?parseFloat(e.PIPvalue):0) +
+                      (e.NSDvalue?parseFloat(e.NSDvalue):0) +
+                      (e.MVRvalue?parseFloat(e.MVRvalue):0) +
+                      (e.creditCardFee?parseFloat(e.creditCardFee):0)).toFixed(2)}
                   </td>
                   {userRole !== "Producer" && (
                     <td className="ClientName" scope="row">

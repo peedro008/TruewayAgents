@@ -14,7 +14,8 @@ const ModifyModal = (props) => {
   const [inputs, setInputs] = useState([]);
   const userId = useSelector((state) => state.UserId);
   const [open1, setOpen1] = useState(false);
-
+  const companies = useSelector((state) => state.Companies);
+  const optionsCo = companies?.map((e) => ({ value: e.id, label: e.name }));
   const onOpenModal1 = () => setOpen1(true);
   const onCloseModal1 = () => setOpen1(false);
   const checkNotes = () => {
@@ -63,14 +64,14 @@ const ModifyModal = (props) => {
   }, [props, userId]);
   const submit = () => {
     inputs.Status
-      ? fetch(` https://truewayagentbackend.com/modifyQuote`, {
+      ? fetch(`https://www.truewayagentbackend.com/modifyQuote`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(inputs),
         }).then(onOpenModal1())
-      : fetch(` https://truewayagentbackend.com/addNotes`, {
+      : fetch(`https://www.truewayagentbackend.com/addNotes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,6 +110,7 @@ const ModifyModal = (props) => {
     checkBound={checkBound}
     checkCancel={checkCancel}
     submit={submit}
+    optionsCo={optionsCo}
     />
     
   );

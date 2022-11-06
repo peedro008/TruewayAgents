@@ -1,4 +1,6 @@
 export const EXAMPLE = "EXAMPLE";
+export const AVG = "AVG";
+export const A_AVG = "A_AVG";
 export const USER = "USER";
 export const USER_ROLE = "USER_ROLE";
 export const USER_NAME = "USER_NAME";
@@ -19,26 +21,31 @@ export const GET_DEPOSITS = "GET_DEPOSITS";
 export const GET_DAILYREPORTS = "GET_DAILYREPORTS";
 export const GET_LOCATIONS = "GET_LOCATIONS";
 export const GET_USERS = "GET_USERS";
+export const SESSION_DATE = "SESSION_DATE";
 
-
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
-// : [],
 
 export function example() {
   return {
     type: EXAMPLE,
+    
+  };
+}
+export function sessionDate(date) {
+  return {
+    type: SESSION_DATE,
+    payload: date,
+  };
+}
+export function a_avg(date) {
+  return {
+    type: A_AVG,
+    payload: date,
+  };
+}
+export function avg(date) {
+  return {
+    type: AVG,
+    payload: date,
   };
 }
 export function logout() {

@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
 import axios from "axios"
 import spinnerr from "../assets/spinnerr.gif"
-import { useSelector } from "react-redux";
-function PizzaChart ({google,  producers}) {
+function StatsSold ({google, quotes, producers}) {
   const [chart, setChart] = useState(null);
-  const quotex = useSelector(s=>s.A_AVG)
-
+ 
   const [dato, setDato]= useState([])
 
   const [time, setTime]= useState(false)
-  const date = new Date();
-  
 
-
-  
-        
+      
       useEffect(()=>{
+        
         let pes = []
-          producers?.map((e, index)=>{
+          producers.map((e, index)=>{
+            
+
+    
+
             
             pes.push(
-              [e.name, quotex?.filter(g=>g.id==e.UserId)[0]?.sold,quotex?.filter(g=>g.id==e.UserId)[0]?.unsold])
+              [e.name,        quotes.filter(
+                (f) =>
+                 ( f.QuoteStatuses.sort(function (a, b) {
+                  return b.id - a.id ;
+                })[0].UserId == e.UserId)&&
+                  f.QuoteStatuses.sort(function (a, b) {
+                    return b.id - a.id ;
+                  })[0].Status == "Sold"
+              ).length])
           })
           setDato(pes)
-      }, [quotex])
+      }, [quotes, producers])
   useEffect(() => {
     setTimeout(()=>{
       setTime(true)
@@ -31,11 +38,10 @@ function PizzaChart ({google,  producers}) {
       const data = new google.visualization.DataTable();
       data.addColumn('string', 'Topping');
       data.addColumn('number', 'Sold', "color:#6F52ED");
-      data.addColumn('number', 'Unsold',"color:#FF7A00");
       data.addRows(dato);
       
       // Set chart options
-      var options = {'title':'Quotes sold per seller',
+      var options = {'title':'New Polizas',
                      
                      fontSize:12,
                      titleTextStyle: {
@@ -54,14 +60,14 @@ function PizzaChart ({google,  producers}) {
                     };
       
       // Instantiate and draw our chart, passing in some options.
-      const newChart = new google.visualization.ColumnChart(document.getElementById('pizzaChart'));
+      const newChart = new google.visualization.ColumnChart(document.getElementById('SoldChart'));
       newChart.draw(data, options);
      
       setChart(newChart);
      
-    }},700)
+    }},200)
     
-  }, [ dato, quotex ]);
+  }, [ dato, chart, ]);
   
   return (
     <>
@@ -69,13 +75,13 @@ function PizzaChart ({google,  producers}) {
       {!google && <p>Google 404</p>}
       {
         !time?
-        <img src={spinnerr} style={{width:"100px", position:"absolute", right:"65vw", top:"40vh"}}/>:
-      <div style={{minHeight:"350px", minWidth:"66vw"}} id="pizzaChart" className={!google ? 'd-none' : ''} ></div>
+      <></>:
+      <div style={{minHeight:"350px", minWidth:"46vw"}} id="SoldChart" className={!google ? 'd-none' : ''} ></div>
       }
     </>
   )
 }
 
-export default PizzaChart;
+export default StatsSold;
 
 

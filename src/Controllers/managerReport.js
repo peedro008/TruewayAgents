@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import ManagerReportComponent from "../Components/managerReport";
 
 const ManagerReport = () => {
-  const [managers, setManagers] = useState([]);
-  const [quotes, setQuotes] = useState([]);
+  const Manager= useSelector(s=>s.Managers)
+  const quotes = useSelector(s=>s.AVG)
+
   const [sold, setSold] = useState(0);
   const [unSold, setUnSold] = useState(0);
   const [modify, setModify] = useState([]);
@@ -25,7 +26,7 @@ const ManagerReport = () => {
   };
   const deleteManager = (data) => {
     data && console.log(data);
-    fetch(` https://truewayagentbackend.com/deleteManager`, {
+    fetch(`https://www.truewayagentbackend.com/deleteManager`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,40 +51,13 @@ const ManagerReport = () => {
         console.log(err);
       });
   };
-  useEffect(() => {
-    axios
-      .get(` https://truewayagentbackend.com/getManager`)
-      .then(function (response) {
-        setManagers(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  useEffect(() => {
-    axios
-      .get(` https://truewayagentbackend.com/quotes`)
-      .then(function (response) {
-        setQuotes(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  useEffect(() => {
-    axios
-      .get(` https://truewayagentbackend.com/getStatus`)
-      .then(function (response) {
-        setModify(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+
+
+
 
   return (
     <ManagerReportComponent
-        managers={managers}
+        managers={Manager}
         quotes={quotes}
         sold={sold}
         unSold={unSold}

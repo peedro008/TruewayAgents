@@ -76,7 +76,7 @@ setPaginator
                      <p className="cloudFilterText">From:&nbsp;<strong>{filterValues.dateFrom}</strong></p>
                      <p className="cloudFilterText"style={{marginLeft:"5px"}}>To:&nbsp;<strong>{filterValues.dateTo}</strong></p>
                      
-                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,dateFrom:null, dateTo:null})}}/>
+                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("dateFrom");closeCloud("dateTo")}}/>
                      </div>
              }
              {
@@ -85,31 +85,24 @@ setPaginator
                      <p className="cloudFilterText">Client name:{clients.find(c => c.id ==  filterValues.ClientId).name}
                      
                      </p>
-                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,ClientId:null})}}/>
+                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("ClientId")}}/>
                      </div>
              }
-             {
-                 filterValues.ClientTel&&
-                 <div className="cloudFilter">
-                     <p className="cloudFilterText">Client phone:{clients.find(c => c.id ==  filterValues.ClientTel).tel}
-                     </p>
-                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,ClientTel:null})}}/>
-                     </div>
-             }
+            
              {
                  filterValues.SoldBy&&
                  <div className="cloudFilter">
-                     <p className="cloudFilterText">Sold By:{producers.find(c => c.id ==  filterValues.ProducerId)?.name}
+                     <p className="cloudFilterText">Sold By:{producers.find(c => c.User.id ==  filterValues.ProducerId)?.User.name}
                      </p>
-                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,SoldBy:null})}}/>
+                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("SoldBy")}}/>
                      </div>
              }
               {
-                 filterValues.ProducerId&&
+                 filterValues.UserId&&
                  <div className="cloudFilter">
-                     <p className="cloudFilterText">Producer name:{producers.find(c => c.id ==  filterValues.ProducerId)?.name}
+                     <p className="cloudFilterText">Producer name:{producers.find(c => c.User.id ==  filterValues.ProducerId)?.User.name}
                     </p>
-                    <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,ProducerId:null})}}/>
+                    <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("UserId")}}/>
                     </div>
              }
               {
@@ -117,7 +110,7 @@ setPaginator
                  <div className="cloudFilter">
                      <p className="cloudFilterText">Location:{locations.find(c => c.id ==  filterValues.LocationId)?.name}
                      </p>
-                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,LocationId:null})}}/>
+                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("LocationId")}}/>
                      </div>
              }
               {
@@ -125,7 +118,7 @@ setPaginator
                  <div className="cloudFilter">
                      <p className="cloudFilterText">Company:{companies.find(c => c.id ==  filterValues.CompanyId)?.name}
                      </p> 
-                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,CompanyId:null})}}/>
+                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("CompanyId")}}/>
                      </div>
              }
                {
@@ -133,22 +126,22 @@ setPaginator
                  <div className="cloudFilter">
                      <p className="cloudFilterText">Category:{categories.find(c => c.id ==  filterValues.CategoryId)?.name}
                      </p>
-                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,CategoryId:null})}}/>
+                     <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("CategoryId")}}/>
                      </div>
              }
               {
                  filterValues.Status&&
                  <div className="cloudFilter"><p className="cloudFilterText">Status:{filterValues.Status}
                 </p>
-                <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud({...filterValues,Status:null})}}/>
+                <img src={close} style={{marginLeft:"5px"}} onClick={()=>{closeCloud("Status")}}/>
                 </div>
              }
               {
-                 filterValues.DealerId&&
+                 filterValues.DealerSalePersonId&&
                  <div className="cloudFilter">
                      <p className="cloudFilterText">Location:{dealers?.find(c => c.id ==  filterValues.DealerId)?.name}
                      </p>
-                     <img src={close} style={{marginLeft:"5px"}}onClick={()=>{closeCloud({...filterValues,DealerId:null})}}/>
+                     <img src={close} style={{marginLeft:"5px"}}onClick={()=>{closeCloud("DealerId")}}/>
                      </div>
              }
             
@@ -203,7 +196,10 @@ setPaginator
                             {columns.category&&<td className="row1" scope="row">{e.Category.name}</td>}
                             {columns.CompanyId&&<td className="row1" scope="row">{e.Company.name}</td>}
                             {columns.ProducerId&&<td className="row1" scope="row">{e.User.name}</td>}
-                            <td className="row1" scope="row">${parseFloat(e.down)+parseFloat(e.PIPvalue)+parseFloat(e.NSDvalue)+parseFloat(e.MVRvalue)}</td>
+                            <td className="row1" scope="row">$             {((e.down?parseFloat(e.down):0) + (e.PIPvalue?parseFloat(e.PIPvalue):0) +
+                      (e.NSDvalue?parseFloat(e.NSDvalue):0) +
+                      (parseFloat(e.MVRvalue)?parseFloat(e.MVRvalue):0) +
+                      (e.creditCardFee?parseFloat(e.creditCardFee):0)).toFixed(2)}</td>
                             {columns.bound&&<td className="row1" scope="row">{e.QuoteStatuses?.sort(function (a, b) {return b.id - a.id})[0]?.Status}</td>}
                             <td className="row1" scope="row">{e.date}</td>
                             <td className="row1" scope="row">{e.time.substring(11,16)}</td>
@@ -315,23 +311,7 @@ setPaginator
                 filterCheck.ClientId&&
                 <div className="FilterComRow"><Select options={clients.map(e=>({value:e.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, ClientId:e.value})}  className="PAYselect"/></div>
             }
-             <div className="FilterComRow">
-                <input type={"checkbox"} checked={filterCheck.ClientTel} onChange={(e)=>setFilterCheck({
-                    ClientId:false,
-                    ClientTel:!filterCheck.ClientTel,
-                    SoldBy:false,
-                    ProducerId:false,
-                    LocationId:false,
-                    CompanyId:false,
-                    DealerId:false,
-                    CategoryId:false,
-                    Status:false})}/>
-                <p className="FilterComText">Client phone</p>
-            </div>
-            {
-                filterCheck.ClientTel&&
-                <div className="FilterComRow"><Select options={clients.map(e=>({value:e.id,label:e.tel}))} onChange={(e)=>setFilterValues({...filterValues, ClientTel:e.value})}  className="PAYselect"/></div>
-            }
+             
             <div className="FilterComRow">
                 <input type={"checkbox"} checked={filterCheck.SoldBy} onChange={(e)=>setFilterCheck({ 
                     ClientId:false,
@@ -347,7 +327,7 @@ setPaginator
             </div>
             {
                 filterCheck.SoldBy&&
-                <div className="FilterComRow"><Select options={producers.map(e=>({value:e.User.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, SoldBy:e.value})}  className="PAYselect"/></div>
+                <div className="FilterComRow"><Select options={producers.map(e=>({value:e.User.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, UserId:e.value, Status:"Sold"})}  className="PAYselect"/></div>
             }
             <div className="FilterComRow">
                 <input type={"checkbox"}checked={filterCheck.ProducerId} onChange={(e)=>setFilterCheck({ 
@@ -364,7 +344,7 @@ setPaginator
             </div>
             {
                 filterCheck.ProducerId&&
-                <div className="FilterComRow"><Select options={producers.map(e=>({value:e.UserId,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, ProducerId:e.value})}  className="PAYselect"/></div>
+                <div className="FilterComRow"><Select options={producers.map(e=>({value:e.UserId,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, UserId:e.value})}  className="PAYselect"/></div>
             }
             <div className="FilterComRow">
                 <input type={"checkbox"}checked={filterCheck.LocationId} onChange={(e)=>setFilterCheck({ 
@@ -449,7 +429,7 @@ setPaginator
             </div>
             {
                 filterCheck.DealerId&&
-                <div className="FilterComRow"><Select options={dealers?.map(e=>({value:e.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, DealerId:e.value})}  className="PAYselect"/></div>
+                <div className="FilterComRow"><Select options={dealers?.map(e=>({value:e.id,label:e.name}))} onChange={(e)=>setFilterValues({...filterValues, DealerSalePersonId:e.value})}  className="PAYselect"/></div>
             }
              
 

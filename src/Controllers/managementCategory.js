@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 const schema = yup
   .object({
     name: yup.string().required(),
+    NSDvalue: yup.number().required(),
   })
   .required();
 
@@ -31,7 +32,7 @@ const ManagerCategory = () => {
 
   const onSubmit = (data) => {
     data &&
-      fetch(` https://truewayagentbackend.com/addCategories`, {
+      fetch(`https://www.truewayagentbackend.com/addCategories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

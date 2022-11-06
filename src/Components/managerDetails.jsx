@@ -3,58 +3,48 @@ import { NavLink } from "react-router-dom";
 import { BsChevronLeft } from "react-icons/bs";
 import { BiPencil, BiDotsHorizontalRounded } from "react-icons/bi";
 
+import { useSelector } from "react-redux";
 import ProducerSales from "../Charts/ProducerSales";
 
 import ProducerPie from "../Charts/ProducerPie";
 const ManagerDetailsComponent = ({
+  mquotes,
+  yquotes,
+  lmquotes,
+  mUquotes,
+  yUquotes,
+  lUmquotes,
+  NSD,
+  LmNSD,
+  yNSD,
+  dots1,
+  setDots1,
+  dots2,
+  setDots2,
+  dots3,
+  setDots3,
+  dots1V,
+  setDots1V,
+  dots2V,
+  setDots2V,
+  dots3V,
+  setDots3V,
   Producer,
-    mquotes,
-setMquotes,
-payments,
-setPayments,
-mstat,
-setMstat,
-ystat,
-setYstat,
-yquotes,
-setYquotes,
-dots1,
-setDots1,
-dots2,
-setDots2,
-dots3,
-setDots3,
-dots1V,
-setDots1V,
-dots2V,
-setDots2V,
-dots3V,
-setDots3V,
-NSD,
-setNSD,
-yNSD,
-setYNSD,
-mpay,
-setMpay,
-ypay,
-setYpay,
-quotes,
-setQuotes,
-modify,
-setModify,
-google,
+  google,
 }) => {
-
-
+  const userRole = useSelector((state) => state.userRole);
+  
   return (
     <div className="genericDiv">
       <div className="genericHeader">
-        <p className="genericTitle">{Producer.name}</p>
+        <p className="genericTitle">{Producer?.name}</p>
       </div>
       <div className="PRODcont1">
         <div className="PRODrect">
           <div className="PRODrectH">
-            <p className="PRODrectT">Sold Quotes</p>
+            <div className="container1111">
+            <p className="PRODrectT" style={{flexDirection:"column"}}>Sold Quotes</p>
+            {dots1V == 1 ? <p className="PRODRECTheader">This Month</p>:dots1V == 2 ?<p className="PRODRECTheader">Last Month</p>:<p className="PRODRECTheader">This Year</p>}</div>
             <BiDotsHorizontalRounded
               style={{ cursor: "pointer" }}
               size={30}
@@ -64,29 +54,29 @@ google,
           </div>
           <div className="PRODrectB">
             <div style={{ display: "flex", flexDirection: "row" }}>
-              {dots1V == 1 ? (
-                <p className="PRODrectQ">
-                  {mstat.filter(
-                    (e) => e.Status !== "Quoted" && e.Status !== "Cancelled"
-                  ).length
-                    ? mstat.filter(
-                        (e) => e.Status !== "Quoted" && e.Status !== "Cancelled"
-                      ).length
-                    : 0}
-                  &nbsp;{" "}
-                </p>
-              ) : (
-                <p className="PRODrectQ">
-                  {ystat.filter(
-                    (e) => e.Status !== "Quoted" && e.Status !== "Cancelled"
-                  ).length
-                    ? ystat.filter(
-                        (e) => e.Status !== "Quoted" && e.Status !== "Cancelled"
-                      ).length
-                    : 0}
-                  &nbsp;
-                </p>
-              )}
+              
+            {dots1V == 1 ? (
+          
+          <p className="PRODrectQ">
+            
+           {mquotes}
+           &nbsp;
+          </p>
+        ) : dots1V == 2? (
+          
+          <p className="PRODrectQ">
+            {lmquotes}
+            &nbsp;
+          </p>
+        )
+        : (
+          
+          <p className="PRODrectQ">
+            {yquotes}
+            &nbsp;
+          </p>
+        )}
+              
               <p className="PRODrectQ">Sold</p>
             </div>
             <div className="PRODrectP"></div>
@@ -94,31 +84,44 @@ google,
         </div>
         {dots1 && (
           <div className="PRODdotsCont1">
+          
             <p
               className="PRODdotT"
-              style={{ color: dots1V == 1 ? "black" : "#979797" }}
+              style={{ color: dots1V == 0 ? "black" : "#979797" }}
               onClick={() => {
                 setDots1V(0);
                 setDots1(!dots1);
               }}
             >
-              Per year
+              This year
             </p>
             <p
               className="PRODdotT"
-              style={{ color: dots1V == 0 ? "black" : "#979797" }}
+              style={{ color: dots1V == 1 ? "black" : "#979797" }}
               onClick={() => {
                 setDots1V(1);
                 setDots1(!dots1);
               }}
             >
-              Per month
+              This month
+            </p>
+            <p
+              className="PRODdotT"
+              style={{ color: dots1V == 2 ? "black" : "#979797" }}
+              onClick={() => {
+                setDots1V(2);
+                setDots1(!dots1);
+              }}
+            >
+              Last month
             </p>
           </div>
         )}
         <div className="PRODrect">
           <div className="PRODrectH">
-            <p className="PRODrectT">Unsold Quotes</p>
+          <div className="container1111">
+            <p className="PRODrectT" style={{flexDirection:"column"}}>Unsold Quotes</p>
+            {dots2V == 1 ? <p className="PRODRECTheader">This Month</p>:dots2V == 2 ?<p className="PRODRECTheader">Last Month</p>:<p className="PRODRECTheader">This Year</p>}</div>
             <BiDotsHorizontalRounded
               style={{ cursor: "pointer" }}
               size={30}
@@ -130,24 +133,17 @@ google,
             <div style={{ display: "flex", flexDirection: "row" }}>
               {dots2V == 1 ? (
                 <p className="PRODrectQ">
-                  {mstat.filter(
-                    (e) => e.Status == "Quoted" || e.Status == "Cancelled"
-                  ).length
-                    ? mstat.filter(
-                        (e) => e.Status == "Quoted" || e.Status == "Cancelled"
-                      ).length
-                    : 0}
+                  {mUquotes}
+                  &nbsp;
+                </p>
+              ): dots2V == 2 ?(
+                <p className="PRODrectQ">
+                  {lUmquotes}
                   &nbsp;
                 </p>
               ) : (
                 <p className="PRODrectQ">
-                  {ystat.filter(
-                    (e) => e.Status == "Quoted" || e.Status == "Cancelled"
-                  ).length
-                    ? ystat.filter(
-                        (e) => e.Status == "Quoted" || e.Status == "Cancelled"
-                      ).length
-                    : 0}
+                  {yUquotes}
                   &nbsp;
                 </p>
               )}
@@ -161,29 +157,42 @@ google,
           <div className="PRODdotsCont2">
             <p
               className="PRODdotT"
-              style={{ color: dots2V == 1 ? "black" : "#979797" }}
+              style={{ color: dots2V == 0 ? "black" : "#979797" }}
               onClick={() => {
                 setDots2V(0);
                 setDots2(!dots2);
               }}
             >
-              Per year
+              This year
             </p>
             <p
               className="PRODdotT"
-              style={{ color: dots2V == 0 ? "black" : "#979797" }}
+              style={{ color: dots2V == 1 ? "black" : "#979797" }}
               onClick={() => {
                 setDots2V(1);
                 setDots2(!dots2);
               }}
             >
-              Per month
+              This month
+            </p>
+            <p
+              className="PRODdotT"
+              style={{ color: dots2V == 2 ? "black" : "#979797" }}
+              onClick={() => {
+                setDots2V(2);
+                setDots2(!dots2);
+              }}
+            >
+              Last month
             </p>
           </div>
         )}
         <div className="PRODrect">
           <div className="PRODrectH">
-            <p className="PRODrectT">NSD Sales</p>
+          <div className="container1111">
+            <p className="PRODrectT" style={{flexDirection:"column"}}>NSD commission</p>
+            
+            {dots3V == 1 ? <p className="PRODRECTheader">This Month</p>:dots3V == 2 ?<p className="PRODRECTheader">Last Month</p>:<p className="PRODRECTheader">This Year</p>}</div>
             <BiDotsHorizontalRounded
               style={{ cursor: "pointer" }}
               size={30}
@@ -194,10 +203,13 @@ google,
           <div className="PRODrectB">
             <div style={{ display: "flex", flexDirection: "row" }}>
               {dots3V == 1 ? (
-                <p className="PRODrectQ">$&nbsp;{NSD} </p>
-              ) : (
-                <p className="PRODrectQ">$&nbsp;{yNSD} </p>
-              )}
+                <p className="PRODrectQ">$&nbsp;{NSD ? NSD : 0} </p>
+              ) : dots3V==2? (
+                <p className="PRODrectQ">$&nbsp;{LmNSD} </p>
+              )
+            :
+            <p className="PRODrectQ">$&nbsp;{yNSD} </p>
+            }
             </div>
             <div className="PRODrectP"></div>
           </div>
@@ -206,28 +218,38 @@ google,
           <div className="PRODdotsCont3">
             <p
               className="PRODdotT"
-              style={{ color: dots3V == 1 ? "black" : "#979797" }}
+              style={{ color: dots3V == 0 ? "black" : "#979797" }}
               onClick={() => {
                 setDots3V(0);
                 setDots3(!dots3);
               }}
             >
-              this year
+              This year
             </p>
             <p
               className="PRODdotT"
-              style={{ color: dots3V == 0 ? "black" : "#979797" }}
+              style={{ color: dots3V == 1 ? "black" : "#979797" }}
               onClick={() => {
                 setDots3V(1);
                 setDots3(!dots3);
               }}
             >
-              this month
+              This month
+            </p>
+            <p
+              className="PRODdotT"
+              style={{ color: dots3V == 2 ? "black" : "#979797" }}
+              onClick={() => {
+                setDots3V(2);
+                setDots3(!dots3);
+              }}
+            >
+              Last month
             </p>
           </div>
         )}
       </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      {/* <div style={{ display: "flex", flexDirection: "row" }}>
         {google && (
           <>
             {" "}
@@ -235,11 +257,11 @@ google,
             <ProducerPie aboutProps={Producer.UserId} google={google} />
           </>
         )}
-      </div>
-
+      </div> */}
+      {userRole !== "Producer" && 
       <NavLink
         to={{
-          pathname: "/users/manager/edit",
+          pathname: "/users/producers/edit",
           props: Producer,
         }}
       >
@@ -257,8 +279,7 @@ google,
             <p className="FITbuttonText">Edit</p>
           </div>
         </button>
-      </NavLink>
-      <BsChevronLeft
+      </NavLink>}      <BsChevronLeft
         color="grey"
         style={{
           minWidth: "30px",

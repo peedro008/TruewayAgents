@@ -39,9 +39,9 @@ function DRdetailsComponent({
         <p className="genericTitle">Daily report</p>
       </div>
       <div className="REPcontrol" style={{width:"25vw", display:"flex", justifyContent:"space-between"}}>
-      <div style={{display:"flex", flexDirection:"row"}}><Checkbox checked={checkbox.Cash} onClick={checkCash}  size="small"  color="#2b4162"/><p className="genericTitle" style={{fontSize:"15px", fontWeight:"600" }}>Cash</p></div>
-      <div style={{display:"flex", flexDirection:"row"}}>   <Checkbox checked={checkbox.EFT} onClick={checkEFT}   size="small"  color="#2b4162"/><p className="genericTitle" style={{fontSize:"15px", fontWeight:"600" }}>EFT</p></div>
-      <div style={{display:"flex", flexDirection:"row"}}>    <Checkbox checked={checkbox.CDC}  onClick={checkCDC}   size="small" color="#2b4162"/><p className="genericTitle" style={{fontSize:"15px", fontWeight:"600" }}>Credit/Debit</p></div>
+      <div style={{display:"flex", flexDirection:"row"}}><Checkbox value={checkbox.Cash} onClick={checkCash}  size="small"  color="#2b4162"/><p className="genericTitle" style={{fontSize:"15px", fontWeight:"600" }}>Cash</p></div>
+      <div style={{display:"flex", flexDirection:"row"}}>   <Checkbox value={checkbox.EFT} onClick={checkEFT}   size="small"  color="#2b4162"/><p className="genericTitle" style={{fontSize:"15px", fontWeight:"600" }}>EFT</p></div>
+      <div style={{display:"flex", flexDirection:"row"}}>    <Checkbox value={checkbox.CDC}  onClick={checkCDC}   size="small" color="#2b4162"/><p className="genericTitle" style={{fontSize:"15px", fontWeight:"600" }}>Credit/Debit</p></div>
       </div>
       <table className="table2">
         <tbody>
@@ -173,11 +173,11 @@ function DRdetailsComponent({
                       </td>
                       <td className="ClientName" scope="row">
                         $
-                        {parseFloat(e.amount) +
+                        {(parseFloat(e.amount) +
                           parseFloat(e.PIPvalue) +
                           parseFloat(e.NSDvalue) +
                           parseFloat(e.MVRvalue) +
-                          parseFloat(e.creditCardFee)}
+                          parseFloat(e.creditCardFee)).toFixed(2)}
                       </td>
                     </tr>
                   );
@@ -187,13 +187,13 @@ function DRdetailsComponent({
 
       <div className="DAItotalCont">
         <div className="DAItotal">
-          <p className="DEPtotalT">TOTAL CASH $ {cash}</p>
+          <p className="DEPtotalT">TOTAL CASH $ {cash.toFixed(2)}</p>
         </div>
         <div className="DAItotal">
-          <p className="DEPtotalT">TOTAL EFT $ {EFT}</p>
+          <p className="DEPtotalT">TOTAL EFT $ {EFT.toFixed(2)}</p>
         </div>
         <div className="DAItotal">
-          <p className="DEPtotalT">TOTAL CREDIT CARD $ {credit}</p>
+          <p className="DEPtotalT">TOTAL CREDIT CARD $ {credit.toFixed(2)}</p>
         </div>
       </div>
 

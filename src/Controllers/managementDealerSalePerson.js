@@ -10,13 +10,13 @@ const schema = yup
   .object({
     name: yup.string().required(),
 
-    CompanyId: yup.number().required(),
+   
   })
   .required();
 
 function ManagementDealerSalePerson() {
   const dispatch = useDispatch()
-  const Company = useSelector((state) => state.Companies);
+
 
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
@@ -32,7 +32,7 @@ function ManagementDealerSalePerson() {
 
   const onSubmit = (data) => {
     data &&
-      fetch(` https://truewayagentbackend.com/addDealerSalePerson`, {
+      fetch(`https://www.truewayagentbackend.com/addDealerSalePerson`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +63,7 @@ function ManagementDealerSalePerson() {
         });
   };
 
-  const options = Company.map((e) => ({ value: e.id, label: e.name }));
+
 
   return (
     <ManagementDealerSalePersonComponent
@@ -71,8 +71,7 @@ function ManagementDealerSalePerson() {
       onCloseModal={onCloseModal}
       open={open}
       control={control}
-      options={options}
-      company={Company}
+      
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       register={register}

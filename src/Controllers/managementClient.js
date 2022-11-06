@@ -44,7 +44,7 @@ const ManagementClient = () => {
 
   const onSubmit = (data) => {
     data && console.log(JSON.stringify(data));
-    fetch(` https://truewayagentbackend.com/addClient`, {
+    fetch(`https://www.truewayagentbackend.com/addClient`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

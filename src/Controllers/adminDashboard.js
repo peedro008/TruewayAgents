@@ -7,6 +7,12 @@ import { useSelector } from "react-redux";
 import AdminDashboardComponent from "../Components/adminDashboard";
 
 const AdminDashboard = () => {
+  const date = new Date();
+  const DATE =
+    date.getFullYear() + ( (date.getMonth() + 1)>9?"-":"-0" )+ (date.getMonth() + 1)+"-" + date.getDate()
+
+    const [mModify, setMModify]=useState([])
+  const [mquotes, setMQuotes]=useState([])
   const [next, setNext] = useState(false);
   const [asd, setAsd] = useState(false);
 
@@ -15,19 +21,33 @@ const AdminDashboard = () => {
   const [unSold, setUnSold] = useState([]);
   const [modifiedList, setModifiedList] = useState([]);
   const [NSD, setNSD] = useState(0);
+  const [mpayments, setMpayments] = useState(0);
   const google = useGoogleCharts();
   const producers = useSelector((state) => state.Producers);
   const UserId = useSelector((state) => state.UserId);
   const modify = useSelector((state) => state.QuoteStatuses);
+  const userRole = useSelector((state) => state.userRole);
   const quotes = useSelector((state) => state.Quotes);
-  const payments = useSelector((state) => state.Payments);
-
+const[payments, setPayments]=useState([])
+const quotex = useSelector(s=>s.AVG)
+const A_AVG = useSelector(s=>s.A_AVG)
+const Payment = useSelector((state) => state.Payments);
+useEffect(()=>{
+  let tempS = 0
+  let tempU = 0
+A_AVG?.map(e=>{
+  tempS += e.sold
+  tempU += e.unsold
+})
+setSold(tempS)
+setUnSold(tempU)
+},[A_AVG] )
   useEffect(() => {
     let temp = [];
     let pes = [];
     modify?.sort(function (a, b) {
         return b.id - a.id;
-      })?.map((e) => {
+      }).splice(0,20)?.map((e) => {
         if (!pes.includes(e.Quote.id) && e.Status !== "-") {
           temp.push(e);
           pes.push(e.Quote.id);
@@ -36,58 +56,64 @@ const AdminDashboard = () => {
     setModifiedList(temp);
   }, [modify]);
 
-  useEffect(() => {
-    let pes = [];
-    let quo = quotes;
 
-    let q = modify;
-    producers?.map((e) =>
-      pes.push([
-        e.name,
-        q?.filter((f) => f.User.name == e.name && f.Status == "Sold").length,
-        quo?.filter(
-          (i) =>
-            i.User.name == e.name 
-        ).length,
-        e,
-      ])
-    );
-    pes?.sort(function (a, b) {
-        return a[1] / a[2] - b[1] / b[2];
-      })
-      .reverse();
-    setDataList(pes);
-  }, [modify, producers, quotes]);
   useEffect(() => {
-    let pes = 0;
-    let pas = 0;
-    
-    quotes?.map((e) => {
-      if (
-        e.QuoteStatuses?.sort(function (a, b) {
-          return a.id - b.id;
-        }).reverse()[0].Status !== "Quoted" &&
-        e.QuoteStatuses?.sort(function (a, b) {
-          return a.id - b.id;
-        }).reverse()[0].Status !== "Cancelled"
-      ) {
-        pes = pes + 1;
-      } else {
-        pas = pas + 1;
-      }
-    });
-    setSold(pes);
-    setUnSold(pas);
-  }, [quotes]);
+    axios
+      .get(`https://www.truewayagentbackend.com/getUserPayment?UserId=${UserId}`)
+      .then(function (response) {
+        setPayments(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [UserId]);
+
+  useEffect(() => {
+    setMpayments(payments?.filter(e=>e.date.substring(0, 7) == DATE.substring(0, 7)))
+  }, [payments]);
+
+
+
+
+  useEffect(() => {
+    setMQuotes(quotes?.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4)))
+    setMModify(modify?.filter((e) => e.Quote.date.substring(0, 7) == DATE.substring(0, 7)))
+
+ 
+  }, [quotes, DATE]);
 
   //NSD
   useEffect(() => {
     let temp = 0;
-    payments?.map((e) => {
-      temp = +parseFloat(e.NSDvalue);
-    });
+    userRole=="Admin"?
+    Payment?.filter(e=>e.date.substring(0, 7) == DATE.substring(0, 7))?.map((e,i) => {
+    
+      temp +=   parseFloat(e.NSDvalue)?parseFloat(e.NSDvalue):0
+    }):
+      payments?.map((e) => {
+        if (e.Category.name !== "HEALTH INSURANCE") {
+          if ( e.Category.id == 2) {
+            temp += 10;
+          }
+          if (e.NSDvalue !== "") {
+            temp +=
+              5 *
+              (e.NSDamount
+                ? parseFloat(e.NSDamount)
+                : parseFloat(e.NSDvalue) / parseFloat(e.Category.NSDvalue));
+          }
+        }
+      })
+      quotes?.filter(f=>(f.UserId==UserId&&f.date.substring(0, 7) == DATE.substring(0, 7))).map((e) => {
+      if ( e.Category.id == 2&&!e.Payment&& e.QuoteStatuses.sort(function (a, b) {
+        return b.id - a.id;
+      })[0].Status=="Sold") {
+        temp += 10;
+      }
+    })
+
     setNSD(temp);
-  }, [payments]);
+  }, [payments, userRole]);
 
   const handleNext = (e) => {
     setNext(!next);
@@ -103,6 +129,7 @@ const AdminDashboard = () => {
       dataList={dataList}
       setDataList={setDataList}
       sold={sold}
+      userRole={userRole}
       setSold={setSold}
       unSold={unSold}
       setUnSold={setUnSold}
@@ -113,10 +140,17 @@ const AdminDashboard = () => {
       producers={producers}
       google={google}
       UserId={UserId}
+      quotex={quotex}
       modify={modify}
       quotes={quotes}
       payments={payments}
       handleNext={handleNext}
+      mquotes={mquotes}
+      mModify={mModify}
+      mpayments={mpayments}
+      Payment={Payment}
+      DATE={DATE}
+      A_AVG={A_AVG}
     />
   );
 };

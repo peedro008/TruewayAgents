@@ -12,7 +12,7 @@ const ProducerReportComponent = ({
   deletedOne,
   sold,
   unSold,
-  modify,
+
   onCloseModal,
   open,
   handleDelete,
@@ -99,21 +99,14 @@ const ProducerReportComponent = ({
                   <td scope="row">{e.phone}</td>
                   <td scope="row">
                     {
-                      modify.filter(
-                        (f) => f.UserId == e.UserId && f.Status == "Sold"
-                      ).length
+                      quotes.filter(
+                        (f) =>f.id == e.UserId)[0]?.sold
                     }
                   </td>
                   <td scope="row">
                     {
                       quotes
-                        .filter((f) => f.UserId == e.UserId)
-                        .filter(
-                          (g) =>
-                            g.QuoteStatuses.sort(function (a, b) {
-                              return b.id - a.id;
-                            })[0].Status == "Quoted"
-                        ).length
+                        .filter((f) =>f.id == e.UserId)[0]?.unsold
                     }
                   </td>
                   {userRole !== "Producer" && (
@@ -152,7 +145,7 @@ const ProducerReportComponent = ({
         }}
       >
         <NavLink
-          to="/manager/managerP"
+          to="/management/Producer"
           style={{ textDecoration: "none", color: "#000" }}
         >
           <button className="PAYbutton">

@@ -13,7 +13,7 @@ function PaymentDetailsComponent({ payment, id }) {
         <div>
           <div className="genericHeader">
             <p className="genericTitle">Payment #{id}</p>
-            <p className="subTitt">{payment[0].date}</p>
+            <p className="subTitt">{payment&&payment[0].date}</p>
           </div>
           <div className="PAYDbigconta">
             <div className="PAYDtitlebox">
@@ -22,19 +22,19 @@ function PaymentDetailsComponent({ payment, id }) {
             <div className="PAYDconta">
               <div className="DETsBox">
                 <p className="DETtitle">Client name</p>
-                <p className="DETtext">{payment[0].Client.name}</p>
+                <p className="DETtext">{payment&&payment[0].Client.name}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Email</p>
-                <p className="DETtext">{payment[0].Client.email}</p>
+                <p className="DETtext">{payment&&payment[0].Client.email}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Phone</p>
-                <p className="DETtext">{payment[0].Client.tel}</p>
+                <p className="DETtext">{payment&&payment[0].Client.tel}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Address</p>
-                <p className="DETtext">{payment[0].Client.address}</p>
+                <p className="DETtext">{payment&&payment[0].Client.address}</p>
               </div>
             </div>
             <div className="PAYDtitlebox">
@@ -43,23 +43,23 @@ function PaymentDetailsComponent({ payment, id }) {
             <div className="PAYDconta">
               <div className="DETsBox">
                 <p className="DETtitle">Category</p>
-                <p className="DETtext">{payment[0].Category.name}</p>
+                <p className="DETtext">{payment[0].Category?.name}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Company</p>
-                <p className="DETtext">{payment[0].Quote.Company.name}</p>
+                <p className="DETtext">{payment&&payment[0].Quote?.Company?.name}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Expedition Date</p>
-                <p className="DETtext">{payment[0].date}</p>
+                <p className="DETtext">{payment&&payment[0].date}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Payment Type</p>
-                <p className="DETtext">{payment[0].type}</p>
+                <p className="DETtext">{payment&&payment[0].type}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Office</p>
-                <p className="DETtext">{payment[0].Location.name}</p>
+                <p className="DETtext">{payment&&payment[0].Location.name}</p>
               </div>
             </div>
             <div className="PAYDtitlebox">
@@ -77,20 +77,20 @@ function PaymentDetailsComponent({ payment, id }) {
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">Payment Method</p>
-                <p className="DETtext">{payment[0].method}</p>
+                <p className="DETtext">{payment&&payment[0].method}</p>
               </div>
               <div className="PAYDsCont">
               <div className="DETsBox">
                 <p className="DETtitle">NSD</p>
-                <p className="DETtext">${payment[0].NSDvalue}</p>
+                <p className="DETtext">${payment&&payment[0].NSDvalue}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">PIP</p>
-                <p className="DETtext">${payment[0].PIPvalue}</p>
+                <p className="DETtext">${payment&&payment[0].PIPvalue}</p>
               </div>
               <div className="DETsBox">
                 <p className="DETtitle">MVR</p>
-                <p className="DETtext">${payment[0].MVRvalue}</p>
+                <p className="DETtext">${payment&&payment[0].MVRvalue}</p>
               </div>
               </div>
              
@@ -100,7 +100,7 @@ function PaymentDetailsComponent({ payment, id }) {
       )}
 
              
-<BsChevronLeft color="grey" style={{minWidth:"30px", minHeight:"30px", position:"fixed",zIndex:9, left:"80px",top:"17px", alignSelf:"flex-start"}} onClick={()=>window.history.go(-1)}/>
+<BsChevronLeft color="grey" style={{minWidth:"30px", minHeight:"30px", position:"fixed",zIndex:9, left:"80px",top:"17px", alignSelf:"flex-start"}} onClick={()=>window.history.go(-2)}/>
     </div>
   );
 }

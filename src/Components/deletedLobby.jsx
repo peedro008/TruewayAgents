@@ -5,7 +5,6 @@ import Isologo_background from  "../assets/Isologo_background.png"
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {AiOutlineDelete} from "react-icons/ai"
-
 const DeletedLobby = () =>{
     const state= useSelector(state=>state.userRole)
     return(

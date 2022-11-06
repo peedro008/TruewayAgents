@@ -13,6 +13,15 @@ const AuthComponent = ({
   open,
   isError,
   message,
+  message1,
+setMessage1,
+  open1,
+setOpen1,
+onOpenModal1,
+onCloseModal1,
+onResetHandler,
+reset,
+setReset
 }) => {
   const [UserName, setUserName] = useState("");
   const [Password, setPassword] = useState("");
@@ -47,7 +56,7 @@ const AuthComponent = ({
                 backgroundColor: "#FFFFFF",
                 width: "300px",
                 display: "flex",
-                height: "180px",
+                height: "200px",
                 flexDirection: "column",
                 justifyContent: "space-between",
                 borderRadius: "8px",
@@ -94,6 +103,7 @@ const AuthComponent = ({
                   <p className="buttonT">Sign In</p>{" "}
                 </button>
               </div>
+        <p onClick={setOpen1} style={{fontSize:"13px",color:"green", textAlign:"right", alignSelf:"flex-end", marginBlock:"10px", marginRight:"5px", cursor:"pointer", fontFamily:"Montserrat" }}>forgott?</p>
             </div>
           </div>
         </div>
@@ -116,6 +126,35 @@ const AuthComponent = ({
           <button className="modalButton" onClick={onCloseModal}>
             Continue
           </button>
+        </div>
+      </Modal>
+      <Modal open={open1} onClose={onCloseModal1} center classNames={"modal"}>
+        <div className="modal" style={{minHeight:"95px", minWidth: "250px", maxWidth:"300px"}}>
+         
+          <p className="modalText" style={{fontSize:"13", marginTop:"20px"}}>{message1}</p>
+          <p className="modalText" style={{fontSize:"10px", marginTop:"20px"}}>it may be in the spam folder.</p>
+          {message1!=="Check your email for instructions"&&
+          <>
+          <input
+                  className="loginInput"
+                  style={{
+                    maxWidth: "270px",
+                    height: "25px",
+                    borderWidth: "0px",
+                    borderRadius: "8px",
+                    backgroundColor: "#E5E5E5",
+                    paddingX: "5px",
+                    alignSelf:"center",
+                    marginTop:"20px",
+                    marginBottom:"5px"
+                  }}
+                  placeholder="Email"
+                  onChange={(event) => setReset(event.target.value)}
+                />
+            
+          <button className="modalButton" onClick={onResetHandler}>
+            Continue
+          </button></>}
         </div>
       </Modal>
     </div>

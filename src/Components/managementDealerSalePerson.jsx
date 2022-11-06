@@ -21,7 +21,7 @@ const ManagementDealerSalePersonComponent=({
     onCloseModal,
     open,
     control,
-    options,
+    
     company,
     handleSubmit,
     onSubmit,
@@ -45,18 +45,7 @@ const ManagementDealerSalePersonComponent=({
                     <input {...register("name")}  placeholder="Name" className="AQinput"></input>
                     <p className="FORMerror">{errors.name?.message}</p>
                 </div>
-               <div className="inputDiv" > 
-                    <p className="PAYtitle">Company</p>
-                    <Controller
-                        control={control}
-                        name="CompanyId"
-                        render={({ field: { onChange, onBlur, value, ref } }) => (
-                            <Select value={options.find(c => c.value === value)} onChange={val => onChange(val.value)} control={control} options={company.map(e=>({value:e.id,label:e.name}))} name={"CompanyId"} className="PAYselect"  placeholder="Select Company"/>
-                        )}
-                    />
-                 <p className="FORMerror">{errors.CompanyId?.message}</p>
-                </div>  
-                
+             
 
             </div>
          

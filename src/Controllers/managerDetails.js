@@ -1,172 +1,175 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-
+import { useSelector } from "react-redux";
 import useGoogleCharts from "../Charts/useGoogleCharts";
 import ManagerDetailsComponent from "../Components/managerDetails";
 
 const ManagerDetails = (props) => {
-  let Producer = props.location.aboutProps;
-  const [mquotes, setMquotes] = useState([]);
-  const [payments, setPayments] = useState([])
-  const [mstat, setMstat] = useState([]);
-  const [ystat, setYstat] = useState([]);
-  const [yquotes, setYquotes] = useState([]);
+  let producer = props.location.aboutProps;
+
+  const userId = useSelector((state) => state.UserId);
+  const PRD = useSelector((state) => state.Producers);
+  const [Producer, setProducer] = useState(null);
+  const google = useGoogleCharts();
+
+  const [mquotes, setMquotes] = useState("");
+  const [yquotes, setYquotes] = useState("");
+  const [lmquotes, setLmquotes] = useState("");
+  const [mUquotes, setMUquotes] = useState("");
+  const [yUquotes, setYUquotes] = useState("");
+  const [lUmquotes, setLmUquotes] = useState("");
+
+
+
   const [dots1, setDots1] = useState(false);
   const [dots2, setDots2] = useState(false);
   const [dots3, setDots3] = useState(false);
-  const [dots1V, setDots1V] = useState(0);
-  const [dots2V, setDots2V] = useState(0);
+  const [dots1V, setDots1V] = useState(1);
+  const [dots2V, setDots2V] = useState(1);
   const [dots3V, setDots3V] = useState(1);
   const [NSD, setNSD] = useState(0);
+  const [LmNSD, setLmNSD] = useState(0);
   const [yNSD, setYNSD] = useState(0);
-  const [mpay, setMpay] = useState([])
-  const [ypay, setYpay] = useState([])
-  const [quotes, setQuotes] = useState([]);
-  const [modify, setModify] = useState([]);
-  const google = useGoogleCharts();
-  
-  useEffect(() => {
-    axios
-      .get(
-        ` https://truewayagentbackend.com/producerQuotes?UserId=${Producer.UserId}`
-      )
-      .then(function (response) {
-        setQuotes(response.data);
 
-        console.log(Producer);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [Producer]);
   useEffect(() => {
-    axios
-      .get(` https://truewayagentbackend.com/getStatus`)
-      .then(function (response) {
-        let paz = response.data;
-
-        setModify(paz.filter((e) => e.UserId == Producer.UserId));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  useEffect (()=>{
-    axios.get(` https://truewayagentbackend.com/getUserPayment?UserId=${Producer.UserId}`)
-    .then(function(response){
-        setPayments(response.data)
-       
-        
-        
-    })
-    .catch(error=>{
-      console.log(error)  
-    })
-},[Producer])
+    producer
+      ? setProducer(producer)
+      : setProducer(PRD?.filter((e) => e.UserId == userId)[0]);
+  }, [userId]);
 
   useEffect(() => {
     const date = new Date();
     const DATE =
-      date.getFullYear() + "-0" + (date.getMonth() + 1) + "-" + date.getDate();
-    let yq = modify;
-    let mq = modify;
-    setYquotes(
-      yq.filter((e) => e.date.substring(0, 4) == DATE.substring(0, 4))
-    );
-    setMquotes(
-      mq.filter((e) => e.date.substring(0, 7) == DATE.substring(0, 7))
-    );
-  }, [quotes, Producer]);
-  useEffect(() => {
-   const date =  new Date()
-        const DATE = date.getFullYear() + '-0' + (date.getMonth() + 1) + '-' + date.getDate();
-        let ys = modify
-        let ms = modify
-        setYstat(ys.filter(e=>e.date.substring(0,4)==DATE.substring(0,4)))
-        setMstat(ms.filter(e=>e.date.substring(0,7)==DATE.substring(0,7)))
-        
+      date.getFullYear() +
+      (date.getMonth() + 1 > 9 ? "-" : "-0") +
+      (date.getMonth() + 1) +
+      "-01";
+    let MY =
+      date.getFullYear() +
+      (date.getMonth() + 1 > 9 ? "-" : "-0") +
+      (date.getMonth() + 1) +
+      "-01";
+    let NMY =
+      date.getFullYear() +
+      (date.getMonth() + 2 > 9 ? "-" : "-0") +
+      (date.getMonth() + 2) +
+      "-01";
+    let LMY =
+      date.getFullYear() +
+      (date.getMonth() > 9 ? "-" : "-0") +
+      date.getMonth() +
+      "-01";
 
-        let yq = quotes
-        let mq = quotes
-        setYquotes(yq.filter(e=>e.date.substring(0,4)==DATE.substring(0,4)))
-        setMquotes(mq.filter(e=>e.date.substring(0,7)==DATE.substring(0,7)))
+    axios
+      .get(
+        `https://www.truewayagentbackend.com/getUserAverage?UserId=${producer.UserId}+&dateFrom=${MY}&dateTo=${NMY}`
+      )
+      .then(function (response) {
+        let paz = response.data;
 
-        let yp = payments
-        let mp = payments
-        setYpay(yp.filter(e=>e.date.substring(0,4)==DATE.substring(0,4)))
-        setMpay(mp.filter(e=>e.date.substring(0,7)==DATE.substring(0,7)))
-  }, [mquotes]);
+        setNSD(paz.NSDcomm);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  useEffect(() => {
-    let pes = 0
-    let pas = 0
-  
-    mpay.map(e=>{
-        if(e.Category.name!=="HEALTH INSURANCE"){
-        if(e.Quote && e.Category.name=="HOMEOWNERS"){
-            pes+=10
-        }
-        if(e.NSDvalue!==""){
-            
-            pes+=5*e.NSDamount
-        }}
-    })
-    ypay.map(e=>{
-        if(e.Category.name!=="HEALTH INSURANCE"){
-        if(e.Quote && e.Category.name=="HOMEOWNERS"){
-            pas+=10
-        }
-        if(e.NSDvalue!==""){
-            
-            pas+=5*e.NSDamount
-        }}
-    })
-    setNSD(pes)
-    setYNSD(pas)
-}, [quotes, Producer, modify,ystat, mstat])
-  
+    axios
+      .get(
+        `https://www.truewayagentbackend.com/getUserAverage?UserId=${producer.UserId}+&dateFrom=${LMY}&dateTo=${MY}`
+      )
+      .then(function (response) {
+        let paz = response.data;
+
+        setLmNSD(paz.NSDcomm);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(
+        `https://www.truewayagentbackend.com/getUserAverage?UserId=${producer.UserId}+&dateFrom=01-01-${
+          date.getFullYear() - 1
+        }&dateTo=01-01-${date.getFullYear()}`
+      )
+      .then(function (response) {
+        let paz = response.data;
+
+        setYNSD(paz.NSDcomm);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(
+        `https://www.truewayagentbackend.com/getUsersAverage?&dateFrom=${MY}&dateTo=${NMY}`
+      )
+      .then(function (response) {
+        let paz = response.data;
+
+        setMUquotes(paz.filter(e=>e.id == producer.UserId)[0].unsold);
+        setMquotes(paz.filter(e=>e.id == producer.UserId)[0].sold);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(
+        `https://www.truewayagentbackend.com/getUsersAverage?&dateFrom=${LMY}&dateTo=${MY}`
+      )
+      .then(function (response) {
+        let paz = response.data;
+
+        setLmquotes(paz.filter(e=>e.id == producer.UserId)[0].sold);
+        setLmUquotes(paz.filter(e=>e.id == producer.UserId)[0].unsold);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(
+        `https://www.truewayagentbackend.com/getUsersAverage?&dateFrom=01-01-${
+          date.getFullYear() - 1
+        }&dateTo=01-01-${date.getFullYear()}`
+      )
+      .then(function (response) {
+        let paz = response.data;
+        setYquotes(paz.filter(e=>e.id == producer.UserId)[0].sold);
+        setYUquotes(paz.filter(e=>e.id == producer.UserId)[0].unsold);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userId]);
 
   return (
-<ManagerDetailsComponent
-mquotes={mquotes}
-setMquotes={setMquotes}
-payments={payments}
-setPayments={setPayments}
-mstat={mstat}
-setMstat={setMstat}
-ystat={ystat}
-setYstat={setYstat}
-yquotes={yquotes}
-setYquotes={setYquotes}
-dots1={dots1}
-setDots1={setDots1}
-dots2={dots2}
-setDots2={setDots2}
-dots3={dots3}
-setDots3={setDots3}
-dots1V={dots1V}
-setDots1V={setDots1V}
-dots2V={dots2V}
-setDots2V={setDots2V}
-dots3V={dots3V}
-setDots3V={setDots3V}
-NSD={NSD}
-setNSD={setNSD}
-yNSD={yNSD}
-setYNSD={setYNSD}
-mpay={mpay}
-setMpay={setMpay}
-ypay={ypay}
-setYpay={setYpay}
-quotes={quotes}
-setQuotes={setQuotes}
-modify={modify}
-setModify={setModify}
-google={google}
-Producer={Producer}
-
-/>
+    <ManagerDetailsComponent
+      mquotes={mquotes}
+      yquotes={yquotes}
+      lmquotes={lmquotes}
+      mUquotes={mUquotes}
+      yUquotes={yUquotes}
+      lUmquotes={lUmquotes}
+      NSD={NSD}
+      LmNSD={LmNSD}
+      yNSD={yNSD}
+      dots1={dots1}
+      setDots1={setDots1}
+      dots2={dots2}
+      setDots2={setDots2}
+      dots3={dots3}
+      setDots3={setDots3}
+      dots1V={dots1V}
+      setDots1V={setDots1V}
+      dots2V={dots2V}
+      setDots2V={setDots2V}
+      dots3V={dots3V}
+      setDots3V={setDots3V}
+      Producer={Producer}
+      google={google}
+    />
   );
 };
 export default ManagerDetails;

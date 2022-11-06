@@ -7,12 +7,16 @@ import mask from "../assets/mask.png";
 import PizzaChart from "../Charts/ProducersChart";
 import PozzaChart from "../Charts/ColumnChar";
 import { NavLink } from "react-router-dom";
+import { duration } from "moment/moment";
 
 
 const AdminDashboardComponent = ({
     next,
 setNext,
-asd,
+DATE,
+mquotes,
+quotex,
+userRole,
 setAsd,
 status,
 setStatus,
@@ -21,7 +25,7 @@ setDataList,
 sold,
 setSold,
 unSold,
-setUnSold,
+mModify,
 modifiedList,
 setModifiedList,
 NSD,
@@ -29,10 +33,12 @@ setNSD,
 producers,
 google,
 UserId,
+Payment,
 modify,
 quotes,
 payments,
 handleNext,
+mpayments
 }) => {
   
   return (
@@ -44,15 +50,17 @@ handleNext,
         <div className="DashContainer">
           <div className="DashSubCont">
             <div style={{ marginLeft: "-100px" }}>
-              {google && <PizzaChart google={google} />}
-            </div>
+              {google&&quotex && quotex.length  &&<PizzaChart google={google} quotex={quotex}  producers={producers}/>}
+            </div> 
             <div className="DashPList1" >
               <div className="DashPListHeader">
                 <p className="DashPListTitle">Producers average sale</p>
                 <p className="DashPListSTitle">Descending</p>
               </div>
               <div className="DashPListDivider" />
-              {dataList.map((e) => {
+              {quotex?.sort(function (a, b) {
+        return Number(b.avg) - Number(a.avg);
+      }).map((e) => {
                 return (
                   <div
                     className="DashPListRow1"
@@ -74,7 +82,7 @@ handleNext,
                           }}
                           to={{
                             pathname: "/users/producers/details",
-                            aboutProps: e[3],
+                            aboutProps: e.id,
                           }}
                         >
                           <img src={mask} />
@@ -90,21 +98,16 @@ handleNext,
                           }}
                           to={{
                             pathname: "/users/producers/details",
-                            aboutProps: e[3],
+                            aboutProps: e.id,
                           }}
                         >
-                          {e[0]}
+                          {e.name}
                         </NavLink>
                       </p>
                     </div>
                     <div className="DashNumberDiv">
                       <p className="DashNumber">
-                        {e[1] / e[2]
-                          ? e[1] / e[2] > 1
-                            ? 100
-                            : ((e[1] / e[2]) * 100).toFixed(0)
-                          : 0}
-                        %
+                        {e.avg}%
                       </p>
                     </div>
                   </div>
@@ -113,6 +116,7 @@ handleNext,
             </div>
           </div>
           <div className="dashContCard">
+      
             <div className="dashCard">
               <div
                 className="dashCircle"
@@ -123,12 +127,7 @@ handleNext,
               <div className="dashText">
                 <p className="dashCardTitle">
                   {
-                    quotes?.filter(
-                      (e) =>
-                        e.QuoteStatuses.sort(function (a, b) {
-                          return b.id - a.id;
-                        })[0].Status == "Quoted"
-                    ).length
+                    unSold
                   }
                 </p>
                 <p className="dashCardText">Unsold quotes</p>
@@ -143,13 +142,22 @@ handleNext,
               </div>
               <div className="dashText">
                 <p className="dashCardTitle">
-                  {modify?.filter((e) => e.Status == "Sold").length
-                    ? modify?.filter((e) => e.Status == "Sold").length
-                    : 0}
+                  {sold}
                 </p>
                 <p className="dashCardText">Total quotes sold per month</p>
               </div>
             </div>
+            <NavLink
+                style={{ textDecoration: "none" }}
+                to={{
+                  pathname: "/report/genericReport",
+                  aboutProps: {
+                    type: "P",
+                    title: `NSD Sold`,
+                    items: userRole=="Manager"? mpayments: Payment?.filter(e=>e.date.substring(0, 7) == DATE.substring(0, 7)&&parseFloat(e.NSDvalue))
+                    
+                  },
+                }}>
             <div className="dashCard" style={{ marginLeft: "50px" }}>
               <div
                 className="dashCircle"
@@ -163,7 +171,18 @@ handleNext,
                 </p>
                 <p className="dashCardText">Total NSD sales</p>
               </div>
-            </div>
+            </div></NavLink>
+            <NavLink
+                style={{ textDecoration: "none" }}
+                to={{
+                  pathname: "/report/genericReport",
+                  aboutProps: {
+                    type: "P",
+                    title: `Payments this Month`,
+                    items: userRole=="Manager"? mpayments: Payment?.filter(e=>e.date.substring(0, 7) == DATE.substring(0, 7))
+                    
+                  },
+                }}>
             <div className="dashCard" style={{ marginLeft: "50px" }}>
               <div
                 className="dashCircle"
@@ -172,10 +191,11 @@ handleNext,
                 <img src={bbill} />
               </div>
               <div className="dashText">
-                <p className="dashCardTitle">{payments?.length?payments?.length:0}</p>
+                <p className="dashCardTitle">{Payment?.filter(e=>e.date.substring(0, 7) == DATE.substring(0, 7)).length}</p>
                 <p className="dashCardText">Total payments per month</p>
               </div>
             </div>
+            </NavLink>
           </div>
         </div>
       ) : (
@@ -184,7 +204,7 @@ handleNext,
             className="DashSubCont"
             style={{ justifyContent: "space-between", paddingRight: "40px" }}
           >
-            {google && <PozzaChart google={google} />}
+            {google && <PozzaChart google={google}  quotex={quotex}  producers={producers} />}
             <div className="DashStatusCont">
               <div className="DashStatusHeader">
                 <p className="DashPListTitle">

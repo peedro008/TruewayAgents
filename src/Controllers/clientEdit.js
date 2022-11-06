@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import ClientEditComponent from "../Components/clientEdit";
@@ -17,15 +17,16 @@ function ClientEdit(props) {
     dateOfBirth: Client.dateOfBirth,
     CompanyId: Client.CompanyId,
   });
+  const [show, setShow] = useState(true);
   const [open, setOpen] = useState(false);
   const [neww, setNeww] = useState(false);
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(Client.address);
   const company = useSelector((state) => state.Companies);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 const dispatch = useDispatch	()
   const handleClick = () => {
-    fetch(` https://truewayagentbackend.com/modifyClient`, {
+    fetch(`https://www.truewayagentbackend.com/modifyClient`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +52,9 @@ const dispatch = useDispatch	()
         console.log(err);
       });
   };
-
+  useEffect(() => {
+    setInputs({...inputs, address: address});
+  }, [address]);
   const options = company.map((e) => ({ value: e.id, label: e.name }));
 
   return (
@@ -68,6 +71,10 @@ const dispatch = useDispatch	()
       onCloseModal={onCloseModal}
       handleClick={handleClick}
       options={options}
+      show={show}
+      setShow={setShow}
+      address={address}
+setAddress={setAddress}
     />
   );
 }

@@ -81,6 +81,9 @@
   margin-top: 25px;
   border-width: 0px;
 }
+.button:disabled{
+  opacity: 0.5;
+}
 .buttonT {
   font-size: 15px;
   color: white;
@@ -851,6 +854,7 @@
 }
 .MOBinputDiv {
   margin-top: 10px;
+  margin-right: 20px;
 }
 .MOBmainInput {
   display: flex;
@@ -1176,7 +1180,7 @@
   color: black;
   background-color: #fbfbfb;
   border-radius: 7px;
-  width: 50vw;
+  width: 30vw;
   height: 80px;
   border-width: 1px;
   border-color: rgb(212, 208, 208);
@@ -1859,8 +1863,8 @@
 }
 .DEPtotal {
   height: 35px;
-  max-width: 358px;
-  width: 198px;
+  max-width: 388px;
+  width: 220px;
   display: flex;
   align-items: "center";
   justify-content: center;
@@ -1869,7 +1873,7 @@
   border-radius: 0px;
   border-radius: 5px;
   margin-top: 65%;
-  padding: 0px 7px;
+
   background-color: #e3e3e3;
 }
 .DEPtotal1 {
@@ -1991,6 +1995,26 @@
 
   justify-content: space-between;
 }
+.DRyesterday{
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid #FF4C61;
+  display: flex;
+  align-items: center;
+  cursor:pointer;
+  background-color: #FFF;
+}
+.DRyesterdayT{
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: center;
+ color:#FF4C61;
+ margin-inline: 10px;
+}
 .DAItotal {
   width: max-content;
   padding-left: 20px;
@@ -2022,6 +2046,7 @@
   color: #2b4162;
   margin-top: 5px;
 }
+
 /*---------------PRDUCERDETAILS----------------------------*/
 .PRODcont1 {
   min-height: 30vh;
@@ -2103,11 +2128,11 @@
   flex-direction: column;
   background-color: white;
   height: max-content;
-  width: 6%;
+  width: 7%;
   left: 25.5%;
   padding: 8px 5px;
   border: 1px solid #a9a9a9;
-  border-radius: 13px;
+  border-radius: 13px 13px 13px 1px;
   align-items: left;
 }
 .PRODdotsCont2 {
@@ -2117,12 +2142,13 @@
   flex-direction: column;
   background-color: white;
   height: max-content;
-  width: 6%;
+  width: 7%;
   left: 49.7%;
   padding: 8px 5px;
   border: 1px solid #a9a9a9;
-  border-radius: 13px;
+  border-radius: 13px 13px 13px 1px;
   align-items: left;
+  z-index: 99;
 }
 .PRODdotsCont3 {
   position: fixed;
@@ -2131,11 +2157,11 @@
   flex-direction: column;
   background-color: white;
   height: max-content;
-  width: 6%;
+  width: 7%;
   left: 73.5%;
   padding: 8px 5px;
   border: 1px solid #a9a9a9;
-  border-radius: 13px;
+  border-radius: 13px 13px 13px 1px;
   align-items: left;
 }
 .PRODdotT {
@@ -2473,4 +2499,96 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   font-family: Lato;
+}
+
+.PRODRECTheader{
+  font-family: "Gilroy-Regular";
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  opacity: 0.8;
+  color:#2b4162
+
+}
+.StadisticRowName{
+  padding-inline: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-block: 20px;
+}
+.StadisticProdName{
+font-family: "Gilroy-Regular";
+font-weight: 600;
+margin-bottom: 20px;
+text-align: center;
+text-shadow: 10px 10px 10px rgb(199, 199, 199);
+
+}
+.StadCalendarDiv{
+  align-self: center;
+  height:max-content;
+  width: 25vw;
+ 
+  display: flex;
+  flex-direction: column;
+}
+.StadCalendarTitle{
+  font-family: "Gilroy-Regular";
+font-weight: 600;
+font-size: 32px;
+text-align: center;
+color:#2b4162;
+margin-top: 4%;
+
+}
+.StadSelect {
+  font-family: "Gilroy-Regular";
+  font-weight: 700;
+  font-size: 13px;
+  color: black;
+  border-width: 0;
+  background-color: #fbfbfb;
+  border-radius: 7px;
+  width: 45%;
+}
+.StadSelectCont{
+  display: flex;
+  margin-top: 10px;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.StadBox{
+  background-color: #d8e2f1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  justify-content: center;
+  align-items: center;
+  padding-block: 5px;
+  padding-inline: 5px;
+  box-shadow: 5px 5px 5px rgb(199, 199, 199);
+  cursor: pointer;
+}
+.StadBox:hover{
+  background-color: #bbc4d3;
+}
+.StadBoxTitle{
+  font-family: "Gilroy-Regular";
+  font-weight: 700;
+  font-size: 13px;
+  color:#2b4162;
+  margin-bottom: 5px;
+
+}
+.StadBoxVal{
+    font-family: "Gilroy-Regular";
+  font-weight: 700;
+  font-size: 15px;
+ color:#171e27;
+  
+
 }

@@ -9,6 +9,7 @@ import {
   userName,
   user,
   userId,
+  sessionDate,
 } from "../Redux/actions";
 import AuthComponent from "../Components/auth";
 import "react-responsive-modal/styles.css";
@@ -18,10 +19,19 @@ const Auth = () => {
   const dispatch = useDispatch();
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState("");
+  const [message1, setMessage1] = useState("Insert your email and you will receive a recovery link");
+
+  const [open1, setOpen1] = useState(false);
+  const onOpenModal1 = () => setOpen1(true);
+  const onCloseModal1 = () => setOpen1(false);
+  const [reset, setReset]= useState("")
 
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const date = new Date();
+ const DATE =
+    date.getFullYear() + ( (date.getMonth() + 1)>9?"-":"-0" )+ (date.getMonth() + 1)+"-" + date.getDate()
   useEffect(() => {
     window.history.pushState("", "", "/");
   }, []);
@@ -31,7 +41,7 @@ const Auth = () => {
       UserName,
       Password,
     };
-    fetch(` https://truewayagentbackend.com/login`, {
+    fetch(`https://www.truewayagentbackend.com/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,11 +60,13 @@ const Auth = () => {
             setIsError(false);
             setMessage(jsonRes.message);
             console.log(jsonRes)
+            dispatch(user(jsonRes));
             dispatch(userRole(jsonRes.UserRole));
-            dispatch(user(payload.UserName));
-            dispatch(userName(jsonRes.Name));
-            dispatch(userId(jsonRes.userId));
-            dispatch(addLocation(producers.filter(e=>e.UserId==jsonRes.userId).LocatioId?producers.filter(e=>e.UserId==jsonRes.userId).LocatioId:1));
+            dispatch(sessionDate(DATE))
+            dispatch(userId(jsonRes.userId))
+          
+           
+            
           }
         } catch (err) {
           onOpenModal();
@@ -65,7 +77,26 @@ const Auth = () => {
         onOpenModal();
       });
   };
-
+  const onResetHandler = (UserName, Password) => {
+    const payload = {
+     email: reset,
+   
+    };
+    fetch(`https://www.truewayagentbackend.com/send`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+    .then(async (res) => {
+     setMessage1("Check your email for instructions")
+    })
+    .catch((err) => {
+      console.log(err);
+      onOpenModal();
+    });
+  }
   return (
     <AuthComponent
       onSubmitHandler={onSubmitHandler}
@@ -74,6 +105,15 @@ const Auth = () => {
       open={open}
       isError={isError}
       message={message}
+      open1={open1}
+      setOpen1={setOpen1}
+      onOpenModal1={onOpenModal1} 
+      reset={reset}
+setReset={setReset}
+    onCloseModal1={onCloseModal1}
+    message1={message1}
+setMessage1={setMessage1}
+onResetHandler={onResetHandler}
     />
   );
 };

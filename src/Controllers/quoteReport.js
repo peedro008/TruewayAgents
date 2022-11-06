@@ -24,7 +24,7 @@ const QuoteReport = (props) => {
   const producers = useSelector((state) => state.Producers);
 
   const [filterValues, setFilterValues] = useState({
-    offset: 0,
+  
   });
   const [filterCheck, setFilterCheck] = useState({
     date: false,
@@ -45,25 +45,18 @@ const QuoteReport = (props) => {
   const dealers = useSelector((state) => state.DealerSalesPersons);
   const locations = useSelector((state) => state.Locations);
 
-  useEffect(() => {
-    let params = new URLSearchParams();
-    params.append("offset", 0);
-    axios
-      .get(` https://truewayagentbackend.com/getQuotesReport`, { params })
-      .then(function (response) {
-        setQuotes(response.data);
-      })
 
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(()=>{
     let params = new URLSearchParams();
     params.append("offset", (paginator-1)*20);
+    let temp = Object.entries(filterValues)
+    
+    temp.map(e=>{
+      params.append(e[0]=="ProducerId"?"UserId":`${e[0]}`, e[1]);
+    })
     axios
-      .get(` https://truewayagentbackend.com/getQuotesReport`, { params })
+      .get(`https://www.truewayagentbackend.com/getQuotesReport`, { params })
       .then(function (response) {
         setQuotes(response.data);
       })
@@ -72,13 +65,19 @@ const QuoteReport = (props) => {
         setQuotes([]);
         console.log(error);
       });
-  },[paginator])
+  },[paginator, filterValues])
 
   useEffect(() => {
     filterSubmit(filterValues);
   }, [filterValues, quotes]);
   const closeCloud = (e) => {
-    setFilterValues(e);
+    let temp = filterValues
+    console.log(temp)
+    delete temp[e]
+    console.log(temp)
+
+    setFilterValues({});
+  
   };
 
   const modify = (e) => {
@@ -86,55 +85,8 @@ const QuoteReport = (props) => {
     setOpen(true);
   };
   const filterSubmit = (e) => {
-    let temp = quotes;
-    if (e.dateFrom && e.dateTo) {
-      temp = temp.filter((h) =>
-        moment(`${h.date}`).isBetween(
-          `${e.dateFrom}`,
-          `${e.dateTo}`,
-          undefined,
-          "[]"
-        )
-      );
-    }
-    if (e.ClientId) {
-      temp = temp.filter((h) => h.ClientId == e.ClientId);
-    }
-    if (e.ClientTel) {
-      temp = temp.filter((h) => h.ClientId == e.ClientTel);
-    }
-    if (e.LocationId) {
-      temp = temp.filter((h) => h.LocationId == e.LocationId);
-    }
-    if (e.CompanyId) {
-      temp = temp.filter((h) => h.CompanyId == e.CompanyId);
-    }
-    if (e.CategoryId) {
-      temp = temp.filter((h) => h.CategoryId == e.CategoryId);
-    }
-    if (e.SoldBy) {
-      temp = temp.filter(
-        (h) =>
-          h.QuoteStatuses.sort(function (a, b) {
-            return b.id - a.id;
-          })[0].User.id == e.SoldBy
-      );
-    }
-    if (e.Status) {
-      temp = temp.filter(
-        (h) =>
-          h.QuoteStatuses.sort(function (a, b) {
-            return b.id - a.id;
-          })[0].Status == e.Status
-      );
-    }
-    if (e.ProducerId) {
-      temp = temp.filter((h) => h.UserId == e.ProducerId);
-    }
-    if (e.DealerId) {
-      temp = temp.filter((h) => h.DealerId == e.DealerId);
-    }
-    setQuotesFil(temp);
+
+    setQuotesFil(quotes);
   };
   const handleDeleteModal = (e) => {
     deleteClient({ QuoteId: deletedOne });
@@ -142,7 +94,7 @@ const QuoteReport = (props) => {
   };
   const deleteClient = (data) => {
     data && console.log(data);
-    fetch(` https://truewayagentbackend.com/deleteQuote`, {
+    fetch(`https://www.truewayagentbackend.com/deleteQuote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

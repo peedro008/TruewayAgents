@@ -35,7 +35,17 @@ const ManagementCategoryComponent = ({
               ></input>
               <p className="FORMerror">{errors.name?.message}</p>
             </div>
+            <div className="inputDiv" style={{marginRight:"50%"}}>
+              <p className="PAYtitle">Category NSD value</p>
+              <input
+                {...register("NSDvalue")}
+                placeholder="Category NSD value"
+                className="AQinput"
+              ></input>
+              <p className="FORMerror">{errors.NSDvalue?.message}</p>
+            </div>
           </div>
+
         </div>
       </form>
 
